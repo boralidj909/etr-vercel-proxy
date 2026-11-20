@@ -2471,13 +2471,13 @@ function liveApi(s){const mine=()=>DLG.on&&DLG.s===s;return{
   onEnd:()=>{if(!mine())return;DLG.live=false;DLG.video=null;logAdd('her','(call ended)');dlgStatus('');setTimeout(()=>{if(DLG.s===s&&!DLG.live)dlgClose(false);},2500);},
   onFail:why=>{if(!mine()||!DLG.livePending)return;DLG.livePending=false;dlgStatus('LIVE UNAVAILABLE'+(why?' · '+why:''));
     if(SAMPLE&&!SAMPLE_OFF){DLG.mode='claude';dlgEl.classList.add('chat');claudeTurn('[The player just walked up to you. Start the conversation.]');}
-    else if(DLG.mode!=='script')dlgRestartScript();}};}
+    else{toast('LIVE CHAT DIDN\'T START',(why||'error')+'. Talk to her again to retry.',3.4);if(DLG.mode!=='script')dlgRestartScript();}}};}
 function girlTalk(s){
   if(REL[s.girl])REL[s.girl].talk++;
   if(DLG.on&&DLG.s===s){if(DLG.mode==='script')dlgSkip();else{try{dlgIn.focus();}catch(e){}}return;}
   if(window.ETR_LIVE&&ETR_LIVE.available&&ETR_LIVE.available()){dlgOpen(s,'live');DLG.livePending=true;
     logAdd('her',pick(s.girl==='mira'?['Hiii! Hold on, it\'s so loud...','Oh my god, hi! One sec...']:['Wait, wait. Hi! Hold on...','Oh, hey cutie! One sec...']));
-    dlgStatus('CALLING · ALLOW THE MIC');ETR_LIVE.start(s.girl,liveApi(s));s.talked=true;return;}
+    dlgStatus('CALLING · ALLOW MIC FOR VOICE');ETR_LIVE.start(s.girl,liveApi(s));s.talked=true;return;}
   if(SAMPLE&&!SAMPLE_OFF){dlgOpen(s,'claude');claudeTurn(s.talked?'[The player came back to talk to you again.]':'[The player just walked up to you. Start the conversation.]');s.talked=true;return;}
   if(!s.talked){dlgOpen(s,'script');return;}
   toast(GIRLS[s.girl].name+':','"'+pick(SCRIPT.after[s.girl])+'"',2.6);}

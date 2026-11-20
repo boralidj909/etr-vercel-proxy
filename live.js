@@ -21,6 +21,31 @@ const audio = Object.assign(document.createElement('audio'), { autoplay: true })
 for (const el of [video, audio]) { el.setAttribute('playsinline', ''); el.style.cssText = 'position:fixed;left:0;top:0;width:2px;height:2px;opacity:0;pointer-events:none'; }
 document.body.append(video, audio);
 
+// If the phone refuses the mic (in-app browsers, a declined prompt), hand the SDK a silent
+// stand-in so the call still connects. She still talks and you type.
+let micOff = false, silentCtx = null;
+function silentStream() {
+  silentCtx = silentCtx || new (window.AudioContext || window.webkitAudioContext)();
+  const dst = silentCtx.createMediaStreamDestination();
+  const g = silentCtx.createGain(); g.gain.value = 0;
+  const o = silentCtx.createOscillator(); o.connect(g); g.connect(dst); o.start();
+  return dst.stream;
+}
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  const realGUM = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+  navigator.mediaDevices.getUserMedia = async (c) => {
+    if (micOff && c && c.audio && !c.video) return silentStream();
+    try { return await realGUM(c); }
+    catch (e) {
+      if (c && c.audio && !c.video) { micOff = true; return silentStream(); }
+      throw e;
+    }
+  };
+}
+// iPhone blocks sound that starts without a tap; any tap after that lets her voice play.
+const kick = () => { for (const el of [audio, video]) if (el.srcObject && el.paused) el.play().catch(() => {}); if (silentCtx && silentCtx.state !== 'running') silentCtx.resume().catch(() => {}); };
+document.addEventListener('touchend', kick, true); document.addEventListener('click', kick, true);
+
 let conv = null;
 let blocked = false; // mic refused or the browser can't call: stay on text
 const duck = (v) => { try { window.ETR && ETR.duck && ETR.duck(v); } catch {} };
@@ -33,6 +58,7 @@ async function credits() {
 
 window.ETR_LIVE = {
   available: () => !blocked && window.isSecureContext && 'RTCPeerConnection' in window,
+  micOff: () => micOff,
   async start(girl, api) {
     if (conv) await this.stop();
     const left = await credits();
@@ -59,10 +85,10 @@ window.ETR_LIVE = {
       if (e.type === 'join-slow') api.status('STILL CONNECTING');
       if (e.type === 'tracks-changed') { c.avatar.videoTrack?.attach(video); c.avatar.audioTrack?.attach(audio); }
       if (e.type === 'avatar-presented') {
-        duck(0.2); api.status('LIVE' + creditsTxt); api.onVideo(video);
+        duck(0.2); api.status((micOff ? 'LIVE · TYPE TO TALK' : 'LIVE') + creditsTxt); api.onVideo(video); kick();
         send({ type: 'response.create', response: { instructions: OPEN[girl] || OPEN.mira } });
       }
-      if (e.type === 'time-remaining' && typeof e.secondsRemaining === 'number') api.status(`LIVE · ${mmss(e.secondsRemaining)} LEFT`);
+      if (e.type === 'time-remaining' && typeof e.secondsRemaining === 'number') api.status(`LIVE${micOff ? ' · TYPE' : ''} · ${mmss(e.secondsRemaining)} LEFT`);
       if (e.type === 'session-ended') { duck(1); conv = null; api.onEnd(e.reason); }
     });
     c.onInterfaceEvent((ev) => {
@@ -81,9 +107,14 @@ window.ETR_LIVE = {
       await c.connect();
     } catch (err) {
       const name = (err && err.name) || '';
-      if (name === 'MediaAccessError' || name === 'WebRTCUnavailableError') blocked = true;
+      if (name === 'WebRTCUnavailableError') blocked = true;
       const why = name === 'MediaAccessError' ? 'mic blocked'
-        : name === 'ActiveSessionError' ? 'another call is still on'
+        : name === 'ActiveSessionError' ? 'another call is still on, try again in a minute'
+        : name === 'GuestLimitError' ? 'guest limit reached'
+        : name === 'LegalRequiredError' ? 'Nuance terms need accepting'
+        : name === 'MaintenanceError' ? 'Nuance is down for maintenance'
+        : name === 'PolicyCurfewError' ? 'Nuance paused new calls'
+        : /slow_down/.test(String(err && err.message)) ? 'too many tries, wait a few minutes'
         : name === 'ApiError' && err.code === 'credits_spent' ? 'no credits left today'
         : name === 'ApiError' && err.code ? err.code : name || 'error';
       console.warn('[ETR live] could not start:', name, err && err.message);
