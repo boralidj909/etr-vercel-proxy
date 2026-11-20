@@ -60,7 +60,7 @@ const TOOLS = [
   {
     type: 'function',
     name: 'give_item',
-    description: "Give the player an item from the character's bag: battery (full phone charge), magic_water (energy boost), gum, or drink_ticket (redeem at a bar). Each runs out.",
+    description: "Give the player an item from the character's bag: battery (a third of a phone charge, about 1:40 more on the player's 5-minute clock), magic_water (energy boost), gum, or drink_ticket (redeem at a bar). Each runs out.",
     parameters: { type: 'object', properties: { item: { type: 'string', enum: ['battery', 'magic_water', 'gum', 'drink_ticket'] } }, required: ['item'] },
   },
 ];
