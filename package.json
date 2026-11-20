@@ -1,0 +1,5 @@
+{
+  "name": "etr-vercel-proxy",
+  "private": true,
+  "type": "module"
+}
