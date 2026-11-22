@@ -2453,13 +2453,17 @@ function giveNumber(s){const g=s.girl;if(!MEM[g]||MEM[g].number)return;MEM[g].nu
   if(DLG.live&&DLG.s===s&&window.ETR_LIVE)ETR_LIVE.note('You just put your phone number in the player\'s phone because you like them a lot. Mention it in your own words.');}
 // ---------- the selfie: they line up behind you, a flash, and the photo lands on your phone ----------
 const SELFIE={on:false,phase:'',t:0,gs:[],flash:0,show:0,shoot:false,cd:0};const SELFIES=[];let photoCv=null,thumbEl=null;
-function freeSpot(x,y){for(const [ox,oy] of [[0,0],[0.2,0],[-0.2,0],[0,0.2],[0,-0.2]]){const z=standAt(x+ox,y+oy,P.z);if(z!==z||Math.abs(z-P.z)>0.3)return false;}return true;}
+function freeSpot(x,y,r){r=r||0.14;for(const [ox,oy] of [[0,0],[r,0],[-r,0],[0,r],[0,-r]]){const z=standAt(x+ox,y+oy,P.z);if(z!==z||Math.abs(z-P.z)>0.3)return false;}return true;}
+// line of floor between two points (so nobody is posed through a wall)
+function clearLine(ax,ay,bx,by){for(let k=1;k<=8;k++){const z=standAt(ax+(bx-ax)*k/8,ay+(by-ay)*k/8,P.z);if(z!==z||Math.abs(z-P.z)>0.3)return false;}return true;}
 function startSelfie(main,withFriend){if(SELFIE.on)return 'already_taking_one';if(EL.on&&inCab())return 'no_room_here';
   let gs=[main];if(withFriend){const o=GIRL_LIST.find(q=>q!==main);if(o)gs.push(o);}
   gs=gs.filter(q=>Math.hypot(q.x-P.x,q.y-P.y)<6&&Math.abs(q.z-P.z)<0.8);if(!gs.length)return 'too_far';
-  for(const off of [0,0.6,-0.6,1.2,-1.2,1.9,-1.9,2.6,-2.6,Math.PI]){const th=P.a+Math.PI+off;
-    const sp=gs.length===1?[[th,0.75]]:[[th+0.5,0.82],[th-0.5,0.82]],pts=sp.map(([a,r])=>[P.x+Math.cos(a)*r,P.y+Math.sin(a)*r]),cm=[P.x-Math.cos(th)*0.62,P.y-Math.sin(th)*0.62];
-    if(!pts.every(q=>freeSpot(q[0],q[1]))||!freeSpot(cm[0],cm[1]))continue;
+  // spots behind the player (side by side, closer together, or one behind the other), camera in front; first fit wins
+  const lay=gs.length===1?[[[0,0.75]],[[0,0.6]],[[0,0.95]],[[0.3,0.7]],[[-0.3,0.7]]]:[[[0.5,0.82],[-0.5,0.82]],[[0.3,0.9],[-0.3,0.9]],[[0.12,0.7],[-0.12,1.3]],[[-0.12,0.7],[0.12,1.3]]];
+  for(const off of [0,0.4,-0.4,0.8,-0.8,1.2,-1.2,1.6,-1.6,2.0,-2.0,2.4,-2.4,2.8,-2.8,Math.PI])for(const L of lay)for(const cd of [0.62,0.48]){const th=P.a+Math.PI+off;
+    const pts=L.map(([a,r])=>[P.x+Math.cos(th+a)*r,P.y+Math.sin(th+a)*r]),cm=[P.x-Math.cos(th)*cd,P.y-Math.sin(th)*cd];
+    if(!pts.every(q=>freeSpot(q[0],q[1])&&clearLine(cm[0],cm[1],q[0],q[1]))||!freeSpot(cm[0],cm[1],0.1))continue;
     Object.assign(SELFIE,{on:true,phase:'gather',t:0,th,cam:cm,flash:0,shoot:false,cd:0,gs:gs.map((q,i)=>({s:q,x0:q.x,y0:q.y,x1:pts[i][0],y1:pts[i][1],wasF:q.following,dur:clamp(Math.hypot(pts[i][0]-q.x,pts[i][1]-q.y)/2.2,0.5,2.6)}))});
     for(const o of SELFIE.gs){const q=o.s;stopActs(q);q.selfie=true;if(q.r0===undefined)q.r0=q.r;q.r=0;q.views=SPR.girlV[q.girl+'Walk'];q.rate=GIRL_WALK_RATE;}
     return gs.length===2?'taking it with both of you':'taking it';}
@@ -2479,7 +2483,9 @@ function updateSelfie(dt){const F=SELFIE;if(F.flash>0)F.flash=Math.max(0,F.flash
 function renderSelfie(){const sv=[dirX,dirY,plX,plY,cam.x,cam.y,cam.z,horizon,FX,FY,FZ,BDX,BDY,BDZ,FP];
   const th=SELFIE.th;dirX=Math.cos(th);dirY=Math.sin(th);plX=-dirY*PLANE;plY=dirX*PLANE;cam.x=SELFIE.cam[0];cam.y=SELFIE.cam[1];cam.z=P.zv+1.05;horizon=H*0.47;
   FX=cam.x;FY=cam.y;FZ=cam.z+0.05;BDX=dirX;BDY=dirY;BDZ=-0.06;FP=3.4;
+  const mks=GIRL_LIST.map(q=>q.mk).filter(m=>m&&!m.gone);for(const m of mks)m.gone=true;
   try{renderScene();}catch(e){}
+  for(const m of mks)m.gone=false;
   if(!photoCv)photoCv=mk(132,172);const c=photoCv.getContext('2d');c.imageSmoothingEnabled=false;
   c.fillStyle='#f4f1ea';c.fillRect(0,0,132,172);
   const cw=Math.round(W*0.62),ch=Math.round(cw*1.25),cx0=Math.round(W/2-cw/2),cy0=Math.round(clamp(horizon-ch*0.52,0,H-ch));
@@ -2856,7 +2862,7 @@ function updateDialog(dt){
         DLG.chipT+=dt;if(DLG.chipT>24){DLG.menuOff=true;dlgNext();}}
       else if(c.ask&&!c.answered){
         if(!dlgChips.firstChild)dlgChipsShow(c.a,i=>dlgAnswer(i));
-        DLG.chipT+=dt;if(DLG.chipT>4.5){c.answered=true;dlgChips.innerHTML='';if(c.miss)DLG.q.unshift({text:c.miss});DLG.hold=0;}}
+        DLG.chipT+=dt;if(DLG.chipT>8){c.answered=true;dlgChips.innerHTML='';if(c.miss)DLG.q.unshift({text:c.miss});DLG.hold=0;}}
       else{DLG.hold-=dt;if(DLG.hold<=0){if(c.out){dlgClose(false);return;}dlgNext();}}}}
   else{
     let ty=DLG.typing;
