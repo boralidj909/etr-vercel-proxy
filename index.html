@@ -64,7 +64,7 @@ button{font:inherit;color:inherit;background:none;border:0;outline:0;cursor:poin
 #dlgLog{display:none;max-height:min(132px,21vh);overflow-y:auto;font-size:19px;line-height:1.05;color:#f0f3f8;-webkit-overflow-scrolling:touch;text-shadow:0 1px 0 #000}
 #dlg.chat #dlgLog{display:block}#dlg.chat #dlgText{display:none}
 #dlg.chat #dlgChips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-top:4px}#dlg.chat #dlgChips button{flex:0 0 auto;padding:6px 8px;min-height:28px;font-size:9px}
-#dlg.walk #dlgLog{max-height:44px}#dlg.walk #dlgChips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-top:3px;min-width:0}#dlg.walk #dlgChips button{flex:0 0 auto;padding:4px 7px;min-height:26px;font-size:8px}#dlg.walk #dlgText{font-size:17px}
+#dlg.walk #dlgLog{max-height:44px}#dlg.walk #dlgChips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-top:3px;min-width:0}#dlg.walk #dlgChips button{flex:0 0 auto;padding:4px 7px;min-height:26px;font-size:8px}#dlg.walk #dlgText{font-size:17px}#dlg.walk #dlgSt{display:none}
 #dlgLog .m{margin:0 0 5px}#dlgLog .m b{font-family:'Silkscreen',monospace;font-weight:400;font-size:9px;letter-spacing:1px;margin-right:6px;color:var(--gc,#5ff2c8)}
 #dlgLog .m.you{color:#bfe6ff}#dlgLog .m.you b{color:#8fd0ff}
 #dlgForm{display:none;flex:1 1 100%;gap:6px;margin-top:7px}#dlg.chat #dlgForm{display:flex}
@@ -2368,10 +2368,11 @@ let BOUNCER=null,VIPPASS=false;
 function placeBouncer(){BOUNCER=null;VIPPASS=false;const vp=(LV.places||[]).find(p=>p.name===VIPNAME[LV.id]);if(!vp||!SPR.bouncerV)return;
   useFloor(START.f);const path=placePath({x:START.x,y:START.y,z:LV.base[START.f]||0},vp.rects);
   const k=path.findIndex(p=>inRects(vp.rects,p[2]>>2,p[2]&3));if(k<1)return;
-  // stand on the first open tile outside the doorway, never on the door itself
-  let j=k-1;while(j>0&&(WD.dr[path[j][2]]>=0||WD.st[path[j][2]]))j--;if(WD.dr[path[j][2]]>=0)return;
-  const e=path[j],inn=path[j+1],z=WD.lo[e[2]];useFloor(layerOfZ(z));
-  const face=Math.atan2(e[1]-inn[1],e[0]-inn[0]),hp=[e[0],e[1]];
+  // he stands just inside the VIP entrance (never on a door, never in a public corridor), facing out
+  let j=k;while(j<path.length-1&&(WD.dr[path[j][2]]>=0||WD.st[path[j][2]])&&inRects(vp.rects,path[j+1][2]>>2,path[j+1][2]&3))j++;
+  if(WD.dr[path[j][2]]>=0)return;
+  const e=path[j],out=path[j-1],z=WD.lo[e[2]];useFloor(layerOfZ(z));
+  const face=Math.atan2(out[1]-e[1],out[0]-e[0]),hp=[e[0],e[1]];
   const b=addSprite({x:e[0],y:e[1],w:0.7,h:BOUNCER_H,tex:SPR.bouncerV.idle[0].t,views:SPR.bouncerV.idle,face,baseFace:face,ai:'named',anim:true,rate:1,r:0.26,occ:0.24,kind:'person',who:'bouncer',bouncer:true,girl:'bouncer'});b.z=z;
   BOUNCER={s:b,vip:vp,home:hp,post:hp,face,st:'idle',t:0,lastOut:null,said:-9,jealT:-99,wayT:0,vouch:null,searched:false,paid:false};
   // a spare battery waits inside: the reward for getting past him
@@ -2419,7 +2420,8 @@ function updateBouncer(dt){const B=BOUNCER;if(!B)return;const b=B.s;B.t+=dt;
   if(!near){B.wayT=0;b.baseFace=B.st==='idle'?B.face:b.baseFace;return;}
   if(B.st==='idle'||B.st==='flex'||B.st==='search')b.baseFace=Math.atan2(P.y-b.y,P.x-b.x);
   // a girl next to you: he gets jealous; if she vouches, he still searches you first
-  const g=GIRL_LIST.find(q=>Math.hypot(q.x-P.x,q.y-P.y)<2.6&&Math.abs(q.z-P.z)<1&&!q.solo);
+  const facing=Math.cos(angDiff(Math.atan2(b.y-P.y,b.x-P.x),P.a))>0.35,atDoor=dP<2.1&&facing;
+  const g=atDoor&&GIRL_LIST.find(q=>Math.hypot(q.x-P.x,q.y-P.y)<2.6&&Math.abs(q.z-P.z)<1&&!q.solo&&!(q.leading&&q.dest!==B.vip.name)&&!q.selfie);
   if(g&&!VIPPASS){
     if(now-B.jealT>14){B.jealT=now;B.said=-9;bLine(pick(JEALOUS),true);}
     if(!B.vouch&&now-B.jealT>1.6&&now-B.jealT<3){
@@ -2813,7 +2815,7 @@ function liveApi(s){const mine=()=>DLG.on&&DLG.s===s;return{
   onEnd:()=>{if(!mine()||!DLG.live)return;DLG.live=false;DLG.video=null;logAdd('her','(call ended)');dlgStatus('');setTimeout(()=>{if(DLG.s===s&&!DLG.live&&DLG.mode==='live')dlgClose(false);},2500);},
   onFail:why=>{if(!mine()||!DLG.livePending)return;DLG.livePending=false;dlgStatus('LIVE UNAVAILABLE'+(why?' · '+why:''));if(DLG.firstTalk)s.talked=false;
     if(SAMPLE&&!SAMPLE_OFF){DLG.mode='claude';dlgEl.classList.add('chat');claudeTurn('[The player just walked up to you. Start the conversation.]');}
-    else{toast('LIVE CHAT DIDN\'T START',(why||'error')+'. Talk to her again to retry.',3.4);if(DLG.mode!=='script')dlgRestartScript();}}};}
+    else{toast('LIVE CHAT DIDN\'T START',(why||'error')+'. Talk to her again to retry.',3.4);dlgStatus('');if(DLG.mode!=='script')dlgRestartScript();}}};}
 function girlTalk(s){
   if(s.bouncer){bouncerTalk();return;}
   if(DLG.on&&DLG.f===s){try{dlgIn.focus();}catch(e){}return;}
