@@ -12,8 +12,10 @@ const uid = (() => {
 })();
 
 const OPEN = {
-  mira: 'Open the conversation already mid-thought: say hi like you know the player and ask if they have seen your friend Molly.',
-  sonia: 'Open the conversation: gush about the DJ playing right now, tell the player they look cute, and ask if they are trying to get to the booth.',
+  mira: { sweet: 'Open the conversation already mid-thought: say hi like you know the player and ask if they have seen your friend Molly.',
+    snarky: 'Open the conversation unimpressed: a bored "what?", then ask if they have seen Molly, as if you doubt they would know.' },
+  sonia: { sweet: 'Open the conversation: gush about the DJ playing right now, tell the player they look cute, and ask if they are trying to get to the booth.',
+    snarky: 'Open the conversation annoyed that the player is standing in your shot while you film the DJ, then ask what they want.' },
 };
 
 const video = Object.assign(document.createElement('video'), { autoplay: true, playsInline: true, muted: true });
@@ -59,7 +61,8 @@ async function credits() {
 window.ETR_LIVE = {
   available: () => !blocked && window.isSecureContext && 'RTCPeerConnection' in window,
   micOff: () => micOff,
-  async start(girl, api) {
+  async start(girl, api, opts) {
+    const mood = (opts && opts.mood) === 'snarky' ? 'snarky' : 'sweet';
     if (conv) await this.stop();
     const left = await credits();
     if (left === 0) { api.onFail('no credits left today'); return; }
@@ -67,7 +70,7 @@ window.ETR_LIVE = {
     const creditsTxt = left == null ? '' : ` · ${left} CREDITS`;
     const c = createNuanceConversation({
       token: async () => {
-        const r = await fetch('/api/nuance-token', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ girl, uid }) });
+        const r = await fetch('/api/nuance-token', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ girl, uid, mood }) });
         const j = await r.json().catch(() => ({}));
         if (!r.ok || !j.token) throw new Error(j.error || 'token ' + r.status);
         return j.token;
@@ -86,7 +89,7 @@ window.ETR_LIVE = {
       if (e.type === 'tracks-changed') { c.avatar.videoTrack?.attach(video); c.avatar.audioTrack?.attach(audio); }
       if (e.type === 'avatar-presented') {
         duck(0.2); api.status((micOff ? 'LIVE · TYPE TO TALK' : 'LIVE') + creditsTxt); api.onVideo(video); kick();
-        send({ type: 'response.create', response: { instructions: OPEN[girl] || OPEN.mira } });
+        send({ type: 'response.create', response: { instructions: (OPEN[girl] || OPEN.mira)[mood] } });
       }
       if (e.type === 'time-remaining' && typeof e.secondsRemaining === 'number') api.status(`LIVE${micOff ? ' · TYPE' : ''} · ${mmss(e.secondsRemaining)} LEFT`);
       if (e.type === 'session-ended') { duck(1); conv = null; api.onEnd(e.reason); }

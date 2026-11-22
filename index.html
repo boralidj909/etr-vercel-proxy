@@ -49,9 +49,14 @@ button{font:inherit;color:inherit;background:none;border:0;outline:0;cursor:poin
 #dlg.show{display:flex}
 #dlgPic{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:4px}
 #dlgCv{width:72px;height:72px;image-rendering:pixelated;border:2px solid var(--gc,#5ff2c8);background:#000;display:block}
+#dlgPic{position:relative}#dlgCv2{display:none;position:absolute;right:-8px;top:44px;width:38px;height:38px;image-rendering:pixelated;border:2px solid var(--fc,#c27bff);background:#000}
+#dlg.duo #dlgCv2{display:block}#dlg.walk #dlgCv2{width:26px;height:26px;top:24px;right:-10px}
+#dlg.walk #dlgCv{width:44px;height:44px}#dlg.walk #dlgName{font-size:8px;letter-spacing:1px}#dlg.walk #dlgText{min-height:0;font-size:18px}
+#dlg.walk #dlgForm{margin-top:4px}#dlg.walk #dlgIn{font-size:16px;padding:3px 7px}#dlg.walk #dlgSend{min-height:28px}#dlg.walk{padding-top:6px;padding-bottom:6px}
+#dlgChips.menu{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;min-width:0;max-width:100%}#dlgChips.menu button{flex:0 0 auto;padding:7px 8px;min-height:30px;font-size:9px}
 #dlgName{font-family:'Silkscreen',monospace;font-size:10px;letter-spacing:2px;color:var(--gc,#5ff2c8)}
-#dlgBody{flex:1 1 auto;min-width:0;display:flex;flex-direction:column}
-#dlgText{font-size:21px;line-height:1.02;color:#f0f3f8;min-height:64px;text-shadow:0 1px 0 #000}
+#dlgBody{flex:1 1 0%;min-width:0;display:flex;flex-direction:column}
+#dlgText{font-size:21px;line-height:1.02;color:#f0f3f8;min-height:48px;text-shadow:0 1px 0 #000}
 #dlgChips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 #dlgChips button{font-family:'Silkscreen',monospace;font-size:10px;letter-spacing:1px;color:#fff;background:#18122a;border:1.5px solid var(--gc,#5ff2c8);border-radius:3px;padding:8px 9px;min-height:32px;pointer-events:auto}
 #dlgX{position:absolute;right:2px;top:2px;width:28px;height:28px;font-family:'Silkscreen',monospace;font-size:13px;color:#8a93a6;background:none;border:0;pointer-events:auto}
@@ -59,7 +64,7 @@ button{font:inherit;color:inherit;background:none;border:0;outline:0;cursor:poin
 #dlgLog{display:none;max-height:min(132px,21vh);overflow-y:auto;font-size:19px;line-height:1.05;color:#f0f3f8;-webkit-overflow-scrolling:touch;text-shadow:0 1px 0 #000}
 #dlg.chat #dlgLog{display:block}#dlg.chat #dlgText{display:none}
 #dlg.chat #dlgChips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-top:4px}#dlg.chat #dlgChips button{flex:0 0 auto;padding:6px 8px;min-height:28px;font-size:9px}
-#dlg.walk #dlgLog{max-height:62px}#dlg.walk #dlgChips{display:none}
+#dlg.walk #dlgLog{max-height:44px}#dlg.walk #dlgChips{display:none}
 #dlgLog .m{margin:0 0 5px}#dlgLog .m b{font-family:'Silkscreen',monospace;font-weight:400;font-size:9px;letter-spacing:1px;margin-right:6px;color:var(--gc,#5ff2c8)}
 #dlgLog .m.you{color:#bfe6ff}#dlgLog .m.you b{color:#8fd0ff}
 #dlgForm{display:none;flex:1 1 100%;gap:6px;margin-top:7px}#dlg.chat #dlgForm{display:flex}
@@ -67,6 +72,8 @@ button{font:inherit;color:inherit;background:none;border:0;outline:0;cursor:poin
 #dlgSend{flex:0 0 auto;font-family:'Silkscreen',monospace;font-size:10px;letter-spacing:1px;color:#07040c;background:var(--gc,#5ff2c8);border:0;border-radius:3px;padding:0 12px;min-height:36px;pointer-events:auto}
 #dlgSt{position:absolute;right:32px;top:6px;font-family:'Silkscreen',monospace;font-size:8px;letter-spacing:1px;color:var(--gc,#5ff2c8);opacity:.9;max-width:60%;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #hud.dlgon #toast{top:46%}
+#selfieThumb{position:absolute;left:10px;bottom:84px;width:68px;height:89px;image-rendering:pixelated;box-shadow:0 3px 14px #000c;transform:rotate(-5deg) translateY(12px);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none}
+#selfieThumb.show{opacity:1;transform:rotate(-5deg)}
 #inv{position:absolute;left:10px;bottom:44px;display:flex;flex-wrap:wrap;gap:5px;max-width:62%;pointer-events:auto}
 #inv button{font-family:'Silkscreen',monospace;font-size:9px;letter-spacing:1px;color:#fff;background:#000c;border:1.5px solid #8af;border-radius:10px;padding:6px 9px;min-height:28px}
 #inv .magic_water{border-color:#4fd8ff;color:#bff3ff}#inv .gum{border-color:#ff7ad8;color:#ffd0f1}#inv .drink_ticket{border-color:#ffd23f;color:#fff0b0}
@@ -123,6 +130,8 @@ button{font:inherit;color:inherit;background:none;border:0;outline:0;cursor:poin
 .mmark b{position:absolute;left:100%;top:-8px;margin-left:4px;font-family:'Silkscreen',monospace;font-size:10px;color:#fff;font-weight:400}
 .mverd{font-family:'Silkscreen',monospace;font-size:8.5px;letter-spacing:1px;text-align:center;min-height:24px;line-height:1.3}
 #endQuotes{margin-top:14px;font-size:19px;color:#cfd6e0;max-width:380px;line-height:1.15;text-align:left}
+#endQuotes .num{font-family:'Silkscreen',monospace;font-size:9px;letter-spacing:1px;color:#ffd23f}#endQuotes .num i{font-style:normal;font-family:'VT323',monospace;font-size:19px;letter-spacing:0;color:#fff;margin-left:4px}
+#endQuotes .selfies{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}#endQuotes .selfies img{width:76px;image-rendering:pixelated;box-shadow:0 3px 12px #000c}
 #endQuotes b{font-family:'Silkscreen',monospace;font-weight:400;font-size:10px;letter-spacing:1px;margin-right:6px}
 #end h2{font-family:'Silkscreen',monospace;font-size:clamp(24px,8vw,34px);line-height:1;letter-spacing:1px}
 #end.win h2{color:#ff4a5a;text-shadow:0 0 16px #ff2040}
@@ -159,13 +168,13 @@ button{font:inherit;color:inherit;background:none;border:0;outline:0;cursor:poin
       <div id="toast"></div>
       <div id="prompt"></div>
       <div id="drunk"></div>
-      <div id="energy"></div><div id="inv"></div>
-      <div id="dlg"><div id="dlgPic"><canvas id="dlgCv" width="48" height="48"></canvas><span id="dlgName">MIRA</span></div><div id="dlgBody"><div id="dlgText"></div><div id="dlgLog"></div><div id="dlgChips"></div></div><span id="dlgSt"></span><button id="dlgX" aria-label="Close">X</button><form id="dlgForm" autocomplete="off"><input id="dlgIn" type="text" maxlength="300" placeholder="Say something..." enterkeyhint="send" autocomplete="off" autocorrect="on"><button id="dlgSend" type="submit">SEND</button></form></div>
+      <div id="energy"></div><div id="inv"></div><canvas id="selfieThumb" width="132" height="172"></canvas>
+      <div id="dlg"><div id="dlgPic"><canvas id="dlgCv" width="48" height="48"></canvas><canvas id="dlgCv2" width="48" height="48"></canvas><span id="dlgName">MIRA</span></div><div id="dlgBody"><div id="dlgText"></div><div id="dlgLog"></div><div id="dlgChips"></div></div><span id="dlgSt"></span><button id="dlgX" aria-label="Close">X</button><form id="dlgForm" autocomplete="off"><input id="dlgIn" type="text" maxlength="300" placeholder="Say something..." enterkeyhint="send" autocomplete="off" autocorrect="on"><button id="dlgSend" type="submit">SEND</button></form></div>
     </div>
     <div id="title" class="overlay">
       <h1>ESCAPE<br>THE RAVE</h1>
       <div class="sub">DEMO 01 / LIGHTS OUT</div>
-      <div class="pitch">Two clubs and a festival. The lights are out. Your phone is the only light you've got. Find the DJ booth before it dies. Three spare batteries are hidden in the dark.<br><span style="color:#ff5a66">Demo mode: battery holds at 23%.</span></div>
+      <div class="pitch">Two clubs and a festival. The lights are out. Your phone is the only light you've got. Find the DJ booth before it dies. Three spare batteries are hidden in the dark.<br><span style="color:#ff5a66">Your phone lasts 5 minutes.</span></div>
       <div class="keys">Left thumb: drag to walk and turn<br>Right side: drag to look around<br>A act &nbsp; B hit &nbsp; X talk &nbsp; Y light</div>
       <div class="tap wait" id="tap">LOADING</div>
     </div>
@@ -197,6 +206,7 @@ button{font:inherit;color:inherit;background:none;border:0;outline:0;cursor:poin
 </div>
 <script src="assets/textures.js"></script>
 <script src="assets/girls.js"></script>
+<script src="assets/bouncer.js"></script>
 <script>
 (()=>{
 'use strict';
@@ -805,6 +815,7 @@ function drawMini(){
   if(pts.length){c.lineWidth=0.18;c.lineCap='round';c.lineJoin='round';c.setLineDash([0.22,0.3]);c.lineDashOffset=-now*1.4;
     c.strokeStyle='#3ff0d0';c.shadowColor='#3ff0d0';c.shadowBlur=8;c.beginPath();c.moveTo(P.x,P.y);for(const [px_,py_] of pts)c.lineTo(px_,py_);c.stroke();c.setLineDash([]);c.shadowBlur=0;}
   for(const g_ of GIRL_LIST){if(Math.abs(g_.z-P.z)>1.6)continue;c.fillStyle=GIRLS[g_.girl].col;c.shadowColor=c.fillStyle;c.shadowBlur=6;c.beginPath();c.arc(g_.x,g_.y,0.32,0,7);c.fill();}c.shadowBlur=0;
+  if(HINT&&now<HINT.until&&Math.abs(HINT.z-P.z)<1.6){const pr=0.35+0.35*((now*1.6)%1);c.strokeStyle='#ffd23f';c.lineWidth=0.14;c.shadowColor='#ffd23f';c.shadowBlur=8;c.beginPath();c.arc(HINT.x,HINT.y,pr,0,7);c.stroke();c.fillStyle='#ffd23f';c.beginPath();c.arc(HINT.x,HINT.y,0.2,0,7);c.fill();c.shadowBlur=0;}
   c.restore();
   // player marker + light cone
   c.save();c.translate(S/2,oy);
@@ -1575,7 +1586,7 @@ function renderSprites(cx,cy,cz,hz,f,DRr,DRg,DRb){
     else if(s.frames){const fi=(Math.floor(beatPos*(s.rate||(s.kind==='dj'?0.5:1)))+(s.ph||0))%s.frames.length;tex=s.frames[fi];}
     let sH=s.h,sW=s.w;if(tex&&tex.w&&(s.views||s.autoW)){sH=s.h*(tex.hf||1);sW=sH*tex.w/tex.h;}
     const scx=W/2+lat*f/depth;const sc=f/depth;const sw=sW*sc,sh=sH*sc;
-    let z0=s.z;
+    let z0=s.z+(s.bob||0);
     if(s.kind==='battery'||s.kind==='tequila')z0+=0.02+Math.sin(now*3+(s.blink||0))*0.015;
     const bot=hz+(cz-z0)*sc,top=bot-sh;
     let x0=Math.ceil(scx-sw/2-0.5),x1=Math.ceil(scx+sw/2-0.5);if(x0<0)x0=0;if(x1>W)x1=W;
@@ -1767,8 +1778,11 @@ async function loadTexAssets(){
   await Promise.all(jobs);
 }
 const phoneCv=mk(64,90),phoneCtx=phoneCv.getContext('2d');
+function drawContact(p,g){p.fillStyle='#0c0816';p.fillRect(0,0,64,90);const G=GIRLS[g];
+  if(atlasOK(g)){const M=ETR_GIRLS[g],k=Object.keys(M.frames).find(k=>k.startsWith(g+':'));if(k){const f=M.frames[k];p.imageSmoothingEnabled=false;p.drawImage(IMG['girlatlas_'+g],f[0],f[1],f[2],f[3],14,8,36,36);}}
+  p.fillStyle=G.col;p.font='bold 9px monospace';p.textAlign='center';p.fillText(G.name,32,56);p.fillStyle='#e8eef6';p.font='7px monospace';p.fillText(PHONE_NO[g],32,68);p.fillStyle='#7d8b9d';p.fillText('NEW CONTACT',32,80);}
 function drawHero(ctx){
-  let fr=P.frame||'phoneUp';
+  let fr=P.frame||'phoneUp';if((SELFIE.show>0||(CONTACT&&now<CONTACT.until))&&hitT<=0)fr='phoneUp';
   if(!lightOn&&fr==='phoneUp')fr='phoneLow';
   if(talkT>0)fr='idle';if(hitT>0)fr='hit';
   const im=HERO[fr];if(!im)return;
@@ -1808,7 +1822,9 @@ function drawHero(ctx){
   if(scrOn&&heroScreen){
     // the phone in his hand runs the same hint map as the HUD
     const p=phoneCtx;p.globalCompositeOperation='source-over';p.fillStyle='#071a20';p.fillRect(0,0,64,90);
-    const cw=192*64/90;p.drawImage(miniCv,(192-cw)/2,0,cw,192,0,0,64,90);
+    if(SELFIE.show>0&&photoCv)p.drawImage(photoCv,6,6,120,150,0,0,64,90);
+    else if(CONTACT&&now<CONTACT.until)drawContact(p,CONTACT.g);
+    else{const cw=192*64/90;p.drawImage(miniCv,(192-cw)/2,0,cw,192,0,0,64,90);}
     p.globalCompositeOperation='destination-in';p.drawImage(heroScreen,221,78,32,45,0,0,64,90);
     ctx.imageSmoothingEnabled=true;ctx.globalAlpha=clamp(0.25+0.75*screenBright,0,1);ctx.drawImage(phoneCv,x+221*sc,y+78*sc,32*sc,45*sc);ctx.globalAlpha=1;
     ctx.globalCompositeOperation='lighter';const g2=ctx.createRadialGradient(sx,sy,0,sx,sy,34*DPR);g2.addColorStop(0,`rgba(150,200,255,${0.16*screenBright})`);g2.addColorStop(1,'rgba(150,200,255,0)');ctx.fillStyle=g2;ctx.fillRect(sx-34*DPR,sy-34*DPR,68*DPR,68*DPR);ctx.globalCompositeOperation='source-over';}
@@ -2020,32 +2036,39 @@ function facingInfo(){
 const GTW=44,GTH=92,GVIEWS=[0,0.785,1.571,2.356,Math.PI];
 const GIRLS={
   mira:{name:'MIRA',col:'#7dff4a',rim:[125,255,74],blip:[640,780],wave:'triangle'},
-  sonia:{name:'SONIA',col:'#c27bff',rim:[194,123,255],blip:[330,420],wave:'square'}};
+  sonia:{name:'SONIA',col:'#c27bff',rim:[194,123,255],blip:[330,420],wave:'square'},
+  bouncer:{name:'BOUNCER',col:'#dfe3ff',rim:[223,227,255],blip:[110,150],wave:'sawtooth'}};
 // The user's sprite sheets (assets/girls.js): Sonia = the purple-braid sheets, Mira = the blazer sheets.
 // Frame names are sheet:index; 'm:' means the frame mirrored, used as the other step of a walk cycle.
 const GSET={
   sonia:{idle:['A2:0','A2:7','A1:0','A2:14'],
     views:[[0.6,'A2:13'],[-0.78,'A2:9'],[1.57,'m:A2:10'],[-1.57,'A2:10'],[2.36,'A2:3'],[-2.36,'A2:5'],[Math.PI,'A2:4']],
     walk:[[0,['A2:7','A2:14']],[0.78,['A2:1','m:A2:9']],[-0.78,['A2:9','m:A2:1']],[1.57,['A2:2','m:A2:12']],[-1.57,['A2:12','m:A2:2']],[2.36,['A2:3','A2:6']],[-2.36,['A2:5','m:A2:3']],[Math.PI,['A2:4','A2:11']]],
-    up:['A1:1','A1:2','A1:1','A1:2','A1:5','A1:6','A1:5','A1:6'],sway:['A1:3','A1:4','A1:3','A1:4','A1:7','A1:8','A1:8','A1:9']},
+    up:['A1:1','A1:2','l:A1:1','A1:2','A1:5','A1:6','r:A1:5','A1:6','m:A1:1','m:A1:2','r:m:A1:1','m:A1:2','m:A1:5','m:A1:6','l:m:A1:5','m:A1:6'],
+    sway:['A1:3','l:A1:3','A1:4','r:A1:4','A1:7','l:A1:7','A1:8','r:A1:8','m:A1:3','r:m:A1:3','m:A1:4','l:m:A1:4','A1:9','l:A1:9','m:A1:8','r:m:A1:8'],
+    spin:['A2:0','A2:13','m:A2:10','A2:3','A2:4','A2:5','A2:10','A2:9','A1:1','A1:2','A1:1','A1:2','l:A1:5','A1:6','r:A1:5','A1:6'],pose:'A1:1'},
   mira:{idle:['B1:9','B2:10','B2:0','B1:9'],
     views:[[0.78,'B2:1'],[-0.78,'B2:9'],[1.57,'B2:8'],[-1.57,'B2:7'],[2.36,'B2:3'],[-2.36,'B2:6'],[Math.PI,'B2:5']],
     walk:[[0,['B2:0','B2:10']],[0.78,['B2:1','m:B2:9']],[-0.78,['B2:9','m:B2:1']],[1.57,['B2:2','B2:8']],[-1.57,['B2:7','m:B2:2']],[2.36,['B2:3','m:B2:6']],[-2.36,['B2:6','m:B2:3']],[Math.PI,['B2:4','B2:5']]],
-    up:['B1:0','B1:1','B1:4','B1:1','B1:0','B1:11','B1:4','B1:11'],sway:['B1:2','B1:3','B1:10','B1:2','B1:6','B1:7','B1:8','B1:10']}};
+    up:['B1:0','B1:1','l:B1:4','B1:1','B1:0','B1:11','r:B1:4','B1:11','m:B1:0','m:B1:1','r:m:B1:4','m:B1:1','m:B1:0','m:B1:11','l:m:B1:4','m:B1:11'],
+    sway:['B1:2','l:B1:2','B1:3','r:B1:3','B1:10','l:B1:10','B1:6','r:B1:6','B1:7','l:B1:7','B1:8','r:B1:8','m:B1:2','r:m:B1:3','m:B1:10','l:m:B1:6'],
+    spin:['B2:0','B2:1','B2:8','B2:3','B2:5','B2:6','B2:7','B2:9','B1:0','B1:1','B1:0','B1:11','l:B1:4','B1:1','r:B1:4','B1:11'],pose:'B1:0'}};
 const GSTAND=1.32;  // world height of the standing figure (the atlas's reference height)
 const gNeonEm=(r,g,b)=>(g>190&&g-r>45&&g-b>80)?120:0;
 function atlasOK(g){return !!(IMG['girlatlas_'+g]&&window.ETR_GIRLS&&ETR_GIRLS[g]);}
 const ATEX={};
-function atlasTex(g,name){const key=g+'|'+name;if(ATEX[key])return ATEX[key];const mir=name.startsWith('m:'),n=mir?name.slice(2):name;
-  const A=IMG['girlatlas_'+g],M=ETR_GIRLS[g],f=M.frames[n];if(!f)return null;const [x,y,w,h]=f;
-  const t=makeTex(w,h,3000+Object.keys(ATEX).length,(c)=>{if(mir){c.translate(w,0);c.scale(-1,1);}c.drawImage(A,x,y,w,h,0,0,w,h);},{noise:0,autoEm:gNeonEm});
+// frame names: [m:][l:|r:]sheet:index. m mirrors; l/r lean the figure left or right from the feet up, which gives extra dance poses from the same drawings
+function atlasTex(g,name){const key=g+'|'+name;if(ATEX[key])return ATEX[key];let n=name,mir=false,lean=0;
+  for(;;){if(n.startsWith('m:')){mir=true;n=n.slice(2);}else if(n.startsWith('l:')){lean=0.13;n=n.slice(2);}else if(n.startsWith('r:')){lean=-0.13;n=n.slice(2);}else break;}
+  const A=IMG['girlatlas_'+g],M=ETR_GIRLS[g],f=M.frames[n];if(!f)return null;const [x,y,w,h]=f;const pad=lean?Math.ceil(Math.abs(lean)*h)+1:0;
+  const t=makeTex(w+pad*2,h,3000+Object.keys(ATEX).length,(c)=>{if(lean)c.transform(1,0,lean,1,-lean*h,0);c.translate(pad,0);if(mir){c.translate(w,0);c.scale(-1,1);}c.drawImage(A,x,y,w,h,0,0,w,h);},{noise:0,autoEm:gNeonEm});
   t.hf=h/M.ref;ATEX[key]=t;return t;}
 function atlasSets(g){const G=GSET[g],T=n=>atlasTex(g,n);
   const idleF=G.idle.map(T);
   const idle=[{a:0,t:idleF[0],anim:idleF},...G.views.map(([a,n])=>({a,t:T(n)}))];
   const walk=G.walk.map(([a,ns])=>{const fr=ns.map(T);return {a,t:fr[0],anim:fr};});
   const dance=st=>{const fr=G[st].map(T);return [{a:0,t:fr[0],anim:fr}];};
-  return {idle,walk,up:dance('up'),sway:dance('sway')};}
+  return {idle,walk,up:dance('up'),sway:dance('sway'),spin:dance('spin'),pose:[{a:0,t:T(G.pose)}]};}
 const gMix=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t];
 const gMul=(a,k)=>[a[0]*k,a[1]*k,a[2]*k];
 const gHash=(x,y,z)=>{let h=Math.imul(Math.floor(x)|0,374761393)^Math.imul(Math.floor(y)|0,668265263)^Math.imul(Math.floor(z)|0,1274126177);h=Math.imul(h^(h>>>13),1103515245);return ((h^(h>>>16))>>>0)/4294967296;};
@@ -2158,7 +2181,7 @@ const GDANCE={
       {bob:0,el:[[-8.6,0.6,74],[8.2,0.6,75]],wr:[[-6.2,1.2,86],[4.5,1.5,88]]},{bob:-1.5,el:[[-10,1,70],[10,1,70]],wr:[[-8.5,1.6,79],[8.5,1.6,79]]}],
   sway:[{bob:-0.5,sway:1,el:[[-7.6,0.6,75],[7.6,0.6,75]],wr:[[-2.4,1.2,86],[2.6,0.8,87]]},{bob:0,sway:0,el:[[-7.6,0.6,75],[7.6,0.6,75]],wr:[[-3,1,87],[3,1,87]]},
       {bob:-0.5,sway:-1,el:[[-7.6,0.6,75],[7.6,0.6,75]],wr:[[-2.6,0.8,87],[2.4,1.2,86]]},{bob:0,sway:0,el:[[-7.6,0.6,75],[7.6,0.6,75]],wr:[[-3,1,87],[3,1,87]]}]};
-function danceViews(g,style){const k=g+'_'+style;if(SPR.girlV[k])return SPR.girlV[k];const D=GDANCE[style],seed=g==='mira'?2600:2700,base=style==='up'?0:50;
+function danceViews(g,style){let k=g+'_'+style;if(SPR.girlV[k])return SPR.girlV[k];if(!GDANCE[style]){style='up';k=g+'_up';if(SPR.girlV[k])return SPR.girlV[k];}const D=GDANCE[style],seed=g==='mira'?2600:2700,base=style==='up'?0:50;
   SPR.girlV[k]=GVIEWS.map((a,vi)=>{const fr=[0,1,2,3].map(f=>girlTex(g==='mira'?miraModel(f,false,null,false,D[f]):soniaModel(f,false,false,null,D[f]),a,seed+base+vi*10+f));return {a,t:fr[0],anim:fr};});
   return SPR.girlV[k];}
 // ray-cast the primitives orthographically; a = view angle (0 faces the camera, +pi/2 faces screen right)
@@ -2200,14 +2223,21 @@ function girlTex(P,a,seed){const R=rasterGirl(P,a,GTW,GTH,{x0:-GTW/2,x1:GTW/2,z0
 function buildGirlSprites(){
   if(atlasOK('mira')&&atlasOK('sonia')){const M=atlasSets('mira'),S_=atlasSets('sonia');GIRL_H=GSTAND;
     GIRL_WALK_RATE=1.8;GIRL_IDLE_RATE=0.5;
-    SPR.girlV={mira:M.idle,miraWalk:M.walk,mira_up:M.up,mira_sway:M.sway,sonia:S_.idle,soniaWalk:S_.walk,sonia_up:S_.up,sonia_sway:S_.sway};}
+    SPR.girlV={mira:M.idle,miraWalk:M.walk,mira_up:M.up,mira_sway:M.sway,mira_spin:M.spin,mira_pose:M.pose,sonia:S_.idle,soniaWalk:S_.walk,sonia_up:S_.up,sonia_sway:S_.sway,sonia_spin:S_.spin,sonia_pose:S_.pose};}
   else{
   const set=(model,seed)=>GVIEWS.map((a,vi)=>{const fr=[0,1,2,3].map(f=>girlTex(model(f),a,seed+vi*10+f));return {a,t:fr[0],anim:fr};});
   SPR.girlV={mira:set(f=>miraModel(f),2100),miraWalk:set(f=>miraModel(f,false,null,true),2500),sonia:set(f=>soniaModel(f,false),2200),soniaWalk:set(f=>soniaModel(f,true),2300)};}
+  buildBouncerSprites();
   SPR.talkIcon=makeTex(14,12,2400,(c,e)=>{c.fillStyle='#0a0612';c.fillRect(1,0,12,9);c.fillRect(0,1,14,7);c.fillRect(3,9,3,2);c.fillRect(3,11,1,1);
     c.fillStyle='#fff';c.fillRect(2,1,10,7);c.fillRect(1,2,12,5);c.fillRect(4,8,1,2);c.fillStyle='#ff3aa8';for(const x of [3,6,9])c.fillRect(x,4,2,2);
     e.fillStyle='rgba(255,255,255,1)';e.fillRect(1,1,12,7);e.fillRect(4,8,1,2);},{noise:0});
 }
+function bouncerTex(name){const key='B|'+name;if(ATEX[key])return ATEX[key];const A=IMG.bouncer_atlas,M=window.ETR_BOUNCER;if(!A||!M||!M.frames[name])return null;
+  const [x,y,w,h]=M.frames[name];const t=makeTex(w,h,3600+Object.keys(ATEX).length,(c)=>{c.drawImage(A,x,y,w,h,0,0,w,h);},{noise:0});t.hf=h/M.ref;ATEX[key]=t;return t;}
+const BOUNCER_H=1.62;
+function buildBouncerSprites(){if(!IMG.bouncer_atlas||!window.ETR_BOUNCER)return;const T=bouncerTex;
+  const grab=['grab0','grab1','grab2','grab2','grab3','grab4','grab4','grab4','grab4'].map(T),run=[0,1,2,3,4,5,6,7,8,9].map(i=>T('run'+i));
+  SPR.bouncerV={idle:[{a:0,t:T('idle')}],flex:[{a:0,t:T('flex')}],grab:[{a:0,t:grab[0],anim:grab}],run:[{a:1.57,t:run[0],anim:run}]};}
 // ---------- sprite filter: anything (the stand-in portrait, or the live persona video) -> 48x48 palette sprite ----------
 const BAYER4=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
 function medianCut(d,n){const px=[];for(let i=0;i<d.length;i+=4)px.push([d[i],d[i+1],d[i+2]]);let boxes=[px];
@@ -2248,25 +2278,51 @@ function renderPortrait(g,t,talk){
   c.putImageData(id,0,0);return PORT.cv;}
 // ---------- placement: both girls on every level; which one you meet first alternates per level and per replay ----------
 let GIRL_LIST=[],GIRL_H=1.42;
-const newRel=()=>({talk:0,msgs:0,chatT:0,walks:0,dances:0,items:0,nice:0,rude:0,left:0,hits:0});
+const newRel=()=>({talk:0,msgs:0,chatT:0,walks:0,dances:0,items:0,nice:0,rude:0,left:0,hits:0,selfies:0});
 let REL={mira:newRel(),sonia:newRel()};
 const NICE=/\b(cute|pretty|beautiful|gorgeous|love|lovely|amazing|awesome|fun|cool|thanks|thank you|sweet|best|great|like you|wow|haha|lol|dance|hug|vibe|vibes|queen|slay)\b/i;
 const RUDE=/\b(ugly|boring|shut up|go away|annoying|stupid|hate|dumb|gross|leave me|whatever|idiot|loser|lame|bye felicia)\b/i;
 function relText(g,t){const r=REL[g];if(!r)return;r.msgs++;if(RUDE.test(t))r.rude++;else if(NICE.test(t))r.nice++;}
 function relScore(g){const r=REL[g];if(!r)return 0;
-  const s=12+(r.talk?18:0)+Math.min(r.msgs,10)*3.2+Math.min(r.chatT/20,6)*2.5+Math.min(r.walks,2)*10+Math.min(r.dances,2)*8+Math.min(r.items,3)*3+Math.min(r.nice,4)*5-r.rude*10-r.left*8-r.hits*18;
+  const s=12+(r.talk?18:0)+Math.min(r.msgs,10)*3.2+Math.min(r.chatT/20,6)*2.5+Math.min(r.walks,2)*10+Math.min(r.dances,2)*8+Math.min(r.items,3)*3+Math.min(r.nice,4)*5+Math.min(r.selfies,2)*7-r.rude*10-r.left*8-r.hits*18-(isSnark(g)?14:0);
   return Math.round(clamp(s,0,100));}
 const GIRL_PLAYS={};
+// ---------- moods: one girl is sweet, the other snarky; they swap every time a level is replayed ----------
+let MOOD={mira:'sweet',sonia:'snarky'};
+const isSnark=g=>MOOD[g]==='snarky';
+// ---------- memory: what happened with each girl on this level, plus a little that carries over (saved on this phone only) ----------
+const newMem=()=>({lines:[],did:[],number:false});
+let MEM={mira:newMem(),sonia:newMem(),bouncer:newMem()};
+const PHONE_NO={mira:'(212) 555-0147',sonia:'(718) 555-0162'},NUMBER_AT=88;
+let PMEM=(()=>{try{return JSON.parse(localStorage.getItem('etr_mem')||'{}')||{};}catch(e){return {};}})();
+function savePM(){try{localStorage.setItem('etr_mem',JSON.stringify(PMEM));}catch(e){}}
+function memLine(g,who,text){const m=MEM[g];if(!m||!text)return;m.lines.push((who==='you'?'Player':GIRLS[who]?GIRLS[who].name:who)+': '+String(text).slice(0,200));if(m.lines.length>16)m.lines.shift();}
+function memDid(g,what){const m=MEM[g];if(!m)return;if(m.did[m.did.length-1]===what)return;m.did.push(what);if(m.did.length>12)m.did.shift();}
+const NOT_NAMES=/^(good|fine|ok|okay|here|lost|looking|trying|not|so|just|new|from|a|an|the|going|in|at|on|tired|drunk|cool|great|sorry|sure|back|done|ready|with|alone|single|hungry|thirsty|bored|high|you|your|into|over|down|up|out|really|very|totally|literally|actually|kind|gonna|dying|dancing|feeling|the|this|that|here|there|vip|with)$/i;
+function learnName(t){const m=String(t).match(/\b(?:my name is|my name's|call me|name's|i'm|i am|im)\s+([A-Za-z][a-z]{1,14})\b/i);if(!m)return;const nm=m[1];
+  if(NOT_NAMES.test(nm))return;if(/^(i'?m|i am|im)\b/i.test(m[0])&&nm[0]!==nm[0].toUpperCase())return;PMEM.name=nm[0].toUpperCase()+nm.slice(1).toLowerCase();savePM();}
+const ZWORD={top:'boyfriend material',mid:'friend-zone material',low:'a total loser'};
+function memText(g){const m=MEM[g]||newMem(),pm=PMEM[g]||{},r=REL[g],o=[];
+  if(PMEM.name)o.push(`The player's name is ${PMEM.name}.`);
+  if(pm.met)o.push(`You met this player earlier tonight (last time at ${pm.last}) and decided they were ${ZWORD[pm.zone]||'okay'}.`+(pm.number?' You already gave them your number.':''));
+  if(m.did.length)o.push('Earlier on this level: '+m.did.join('; ')+'.');
+  if(r&&(r.rude||r.nice))o.push(r.rude>r.nice?'The player has been rude to you.':'The player has been sweet to you.');
+  if(m.number)o.push('You gave the player your number tonight.');
+  if(m.lines.length)o.push('What was said so far, oldest first:\n'+m.lines.join('\n'));
+  return o.join('\n');}
 function placeGirls(){
   GIRL_LIST=[];REL={mira:newRel(),sonia:newRel()};if(!LV.girlSpots||!SPR.girlV)return;
   const order=['input','factory','fest'],li=Math.max(0,order.indexOf(LV.id));
   let plays=GIRL_PLAYS[LV.id]||0;try{plays=+(localStorage.getItem('etr_gp_'+LV.id)||plays);}catch(e){}
-  const first=(li+plays)%2?'sonia':'mira',names=[first,first==='mira'?'sonia':'mira'];
+  const first=(li+Math.floor(plays/2))%2?'sonia':'mira',names=[first,first==='mira'?'sonia':'mira'];
+  const sweet=(li+plays)%2?'sonia':'mira';MOOD={mira:sweet==='mira'?'sweet':'snarky',sonia:sweet==='sonia'?'sweet':'snarky'};
+  MEM={mira:newMem(),sonia:newMem(),bouncer:newMem()};HINT=null;SELFIE.on=false;SELFIE.show=0;SELFIES.length=0;CONTACT=null;PAIR.n=0;PAIR.met=false;STATS.taken=0;
   GIRL_PLAYS[LV.id]=plays+1;try{localStorage.setItem('etr_gp_'+LV.id,String(plays+1));}catch(e){}
   LV.girlSpots.forEach((sp,k)=>{const [f,x,y,face]=sp,g=names[k];useFloor(f);
     const s=addSprite({x,y,w:0.6,h:GIRL_H,tex:SPR.girlV[g][0].t,views:SPR.girlV[g],face,baseFace:face,home:face,ai:'named',anim:true,rate:GIRL_IDLE_RATE,r:0.24,occ:0.22,kind:'person',who:'girl',girl:g,ph:k*2});
     s.mk=addSprite({x,y,z:0,w:0.2,h:0.17,tex:SPR.talkIcon,kind:'deco',em:1.4});s.mk.z=s.z+GIRL_H*0.93;
     s.stash={battery:1,magic_water:1,gum:2,drink_ticket:1};GIRL_LIST.push(s);});
+  placeBouncer();
 }
 // ---------- walking the player somewhere: Sonia's "shortcut", or a real walk when the player asks ----------
 function placePath(s,rects){const f=new Float32Array(MW*MH*4);
@@ -2278,16 +2334,165 @@ function placePath(s,rects){const f=new Float32Array(MW*MH*4);
     if(best===a)break;a=best;const bi=a>>2;pts.push([(bi%MW)+0.5,((bi/MW)|0)+0.5,a]);}
   return pts;}
 const GIRL_WALK=1.15;let GIRL_WALK_RATE=2.4,GIRL_IDLE_RATE=1;
-function findPlace(name){const P_=LV.places||[];if(!P_.length)return null;const q=String(name||'').toLowerCase().replace(/[^a-z0-9 -]/g,' ').trim();
+function findPlace(name,self){const q0=String(name||'').toLowerCase();
+  for(const g of GIRL_LIST){if(g===self)continue;if(q0.includes(g.girl)||/\b(friend|bestie|your girl|other girl|the girls?)\b/.test(q0)){const n=nodeAt(g.x,g.y,g.z);if(n>=0){const ix=n>>2,x=ix%MW,y=(ix/MW)|0;return {name:GIRLS[g.girl].name,friend:g,rects:[[x-1,y-1,x+1,y+1,WD.lo[n]]]};}}}
+  if(BOUNCER&&/\b(bouncer|vip|security)\b/.test(q0))return LV.places.find(p=>p.name===BOUNCER.vip.name)||null;
+  const P_=LV.places||[];if(!P_.length)return null;const q=q0.replace(/[^a-z0-9 -]/g,' ').trim();
   if(!q||/\b(any ?where|surprise|wherever|random|you pick|your choice|somewhere|fun)\b/.test(q))return pick(P_);
   let best=null,bs=0;for(const p of P_){for(const n of [p.name.toLowerCase(),...p.aka]){let sc=0;if(q===n)sc=10;else if(q.includes(n))sc=4+n.length/20;else if(n.includes(q))sc=3;
     else{const w=q.split(/\s+/).filter(x=>x.length>2&&n.includes(x));sc=w.length;}if(sc>bs){bs=sc;best=p;}}}
   return best;}
-function startLead(s,dest){if(s.leading)return 'already_walking';const p=typeof dest==='object'&&dest?dest:findPlace(dest==='bathroom'?'bathroom':dest);if(!p)return 'unknown_place';
+function startLead(s,dest,solo){if(s.leading&&!solo)return 'already_walking';const p=typeof dest==='object'&&dest?dest:findPlace(dest==='bathroom'?'bathroom':dest,s);if(!p)return 'unknown_place';
   const path=placePath(s,p.rects);if(!path.length){const a=nodeAt(s.x,s.y,s.z);return a>=0&&inRects(p.rects,a>>2,a&3)?'already_there':'cant_get_there';}
-  Object.assign(s,{leading:true,dest:p.name,path,pi:0,waiting:false,waitSaid:false,dancing:null});if(s.r0===undefined)s.r0=s.r;s.r=0;s.views=SPR.girlV[s.girl+'Walk'];s.rate=GIRL_WALK_RATE;return p.name;}
+  stopActs(s);Object.assign(s,{leading:true,solo:!!solo,dest:p.name,path,pi:0,waiting:false,waitSaid:false,dancing:null});if(s.r0===undefined)s.r0=s.r;s.r=0;s.views=SPR.girlV[s.girl+'Walk'];s.rate=GIRL_WALK_RATE;
+  memDid(s.girl,(solo?'headed off alone to ':'started walking the player to ')+(p.friend?'':'the ')+p.name);return p.name;}
+function stopActs(s){Object.assign(s,{leading:false,solo:false,following:false,comeOnce:false,dancing:null,walkingF:false,bob:0});s.views=SPR.girlV[s.girl];s.rate=GIRL_IDLE_RATE;if(s.r0!==undefined&&s.r===0)s.ghostT=0.5;}
+function startFollow(s,once){if(SELFIE.on&&s.selfie)return false;stopActs(s);Object.assign(s,{following:true,comeOnce:!!once,path:[],pi:0,repT:0,lostT:0});if(s.r0===undefined)s.r0=s.r;s.r=0;
+  memDid(s.girl,once?'came over to the player':'followed the player around');return true;}
+function waitHere(s){stopActs(s);s.home=s.baseFace=Math.atan2(P.y-s.y,P.x-s.x);memDid(s.girl,'waited where the player told you to');return true;}
+// walk along s.path: skips corners it can see past, opens doors, kicks jammed ones; true when the path is done
+function walkStep(s,dt,speed,dP){
+  while(s.pi+1<s.path.length){const n2=s.path[s.pi+1];if(WD.dr[n2[2]]>=0)break;let ok=true;
+    for(let k=1;k<=6&&ok;k++){const tx=s.x+(n2[0]-s.x)*k/6,ty=s.y+(n2[1]-s.y)*k/6;const z=standAt(tx,ty,s.z);if(z!==z||Math.abs(z-s.z)>0.7)ok=false;}
+    if(!ok)break;s.pi++;}
+  const wp=s.path[s.pi];if(!wp)return true;const dr=WD.dr[wp[2]];
+  if(dr>=0&&!doors[dr].auto&&doors[dr].open<0.9){const d=doors[dr];if(!d.opening){if(d.jammed){d.jammed=false;d.hits=3;bakeNav();if(dP<7){S.bust();shake=0.2;toast(GIRLS[s.girl].name+' kicks the jammed door open.','',1.8);}}else if(dP<6)S.door();d.opening=true;}s.face=Math.atan2(wp[1]-s.y,wp[0]-s.x);return false;}
+  const dx=wp[0]-s.x,dy=wp[1]-s.y,dd=Math.hypot(dx,dy),sp=speed*dt;
+  if(dd<=sp){s.x=wp[0];s.y=wp[1];s.pi++;}else{s.x+=dx/dd*sp;s.y+=dy/dd*sp;}
+  s.face+=clamp(angDiff(Math.atan2(dy,dx),s.face),-6*dt,6*dt);s.baseFace=s.face;
+  {const z=standAt(s.x,s.y,s.z);if(z===z)s.z=z;}
+  return s.pi>=s.path.length;}
+// ---------- the bouncer at the VIP door (the user's white-suit sprite sheets) ----------
+const VIPNAME={input:'green room',factory:'VIP room',fest:'VIP deck'};
+let BOUNCER=null,VIPPASS=false;
+function placeBouncer(){BOUNCER=null;VIPPASS=false;const vp=(LV.places||[]).find(p=>p.name===VIPNAME[LV.id]);if(!vp||!SPR.bouncerV)return;
+  useFloor(START.f);const path=placePath({x:START.x,y:START.y,z:LV.base[START.f]||0},vp.rects);
+  const k=path.findIndex(p=>inRects(vp.rects,p[2]>>2,p[2]&3));if(k<1)return;
+  // stand on the first open tile outside the doorway, never on the door itself
+  let j=k-1;while(j>0&&(WD.dr[path[j][2]]>=0||WD.st[path[j][2]]))j--;if(WD.dr[path[j][2]]>=0)return;
+  const e=path[j],inn=path[j+1],z=WD.lo[e[2]];useFloor(layerOfZ(z));
+  const face=Math.atan2(e[1]-inn[1],e[0]-inn[0]),hp=[e[0],e[1]];
+  const b=addSprite({x:e[0],y:e[1],w:0.7,h:BOUNCER_H,tex:SPR.bouncerV.idle[0].t,views:SPR.bouncerV.idle,face,baseFace:face,ai:'named',anim:true,rate:1,r:0.26,occ:0.24,kind:'person',who:'bouncer',bouncer:true,girl:'bouncer'});b.z=z;
+  BOUNCER={s:b,vip:vp,home:hp,post:hp,face,st:'idle',t:0,lastOut:null,said:-9,jealT:-99,wayT:0,vouch:null,searched:false,paid:false};
+  // a spare battery waits inside: the reward for getting past him
+  let best=null,bd=-1;for(const r of vp.rects)for(let y=r[1];y<=r[3];y++)for(let x=r[0];x<=r[2];x++){const zz=standAt(x+0.5,y+0.5,r[4]);if(zz!==zz||Math.abs(zz-r[4])>0.3)continue;const d=Math.hypot(x+0.5-e[0],y+0.5-e[1]);if(d>bd){bd=d;best=[x+0.5,y+0.5,zz];}}
+  if(best){useFloor(layerOfZ(best[2]));const bt=addBattery(best[0],best[1]);bt.z=best[2];bt.vip=true;}}
+function freeAt(x,y,z0){for(const [ox,oy] of [[0,0],[0.25,0],[-0.25,0],[0,0.25],[0,-0.25]]){const z=standAt(x+ox,y+oy,z0);if(z!==z||Math.abs(z-z0)>0.3)return false;}return true;}
+function bSet(st){const B=BOUNCER,b=B.s;B.st=st;B.t=0;b.views=SPR.bouncerV[st==='chase'||st==='back'?'run':st==='search'?'grab':st]||SPR.bouncerV.idle;b.rate=st==='grab'||st==='search'?6:st==='chase'||st==='back'?4:1;b.ph=-Math.floor(beatPos*b.rate);}
+function bLine(t,force){const B=BOUNCER;if(!B||(!force&&now-B.said<1.8))return;B.said=now;memLine('bouncer','bouncer',t);
+  if(DLG.on&&DLG.s===B.s){if(DLG.mode==='script')dlgPush(t,true);else logAdd('her',t);}else toast('BOUNCER:','"'+t+'"',2.6);}
+function bShove(a,dist){for(let i=1;i<=Math.round((dist||1.3)/0.1);i++){const x=P.x+Math.cos(a)*0.1,y=P.y+Math.sin(a)*0.1,z=standAt(x,y,P.z);if(z!==z||Math.abs(z-P.z)>0.4)break;P.x=x;P.y=y;}P.vx=P.vy=0;shake=0.45;S.thud();}
+// the search: he takes everything in the player's pockets
+function bSearch(){const B=BOUNCER;if(!B)return {ok:false};const took=[];
+  for(const k of Object.keys(INV)){if(INV[k]>0){took.push((INV[k]>1?INV[k]+' ':'')+ITEM[k].toLowerCase());STATS.taken=(STATS.taken||0)+INV[k];if(k==='drink_ticket')B.paid=true;INV[k]=0;}}
+  invDraw();B.searched=true;bSet('search');S.thud();
+  if(took.length){toast('BOUNCER TOOK:',took.join(', '),2.8);memDid('bouncer','searched the player and took their '+took.join(', '));}else memDid('bouncer','searched the player and found nothing');
+  return {ok:true,took,found_drink_ticket:B.paid};}
+function canLetIn(){const B=BOUNCER;return !!B&&(B.paid||!!B.vouch);}
+function vipGrant(){if(VIPPASS||!BOUNCER)return;VIPPASS=true;const B=BOUNCER,b=B.s;
+  const px=-Math.sin(B.face),py=Math.cos(B.face),fx=Math.cos(B.face),fy=Math.sin(B.face);
+  for(const [a,c] of [[0.8,0],[-0.8,0],[0.8,0.7],[-0.8,0.7],[0.55,0],[-0.55,0]]){const x=B.home[0]+px*a+fx*c,y=B.home[1]+py*a+fy*c;if(freeAt(x,y,b.z)){B.post=[x,y];break;}}
+  if(B.post!==B.home){b.mx0=b.x;b.my0=b.y;b.mvx=B.post[0];b.mvy=B.post[1];b.mvT=0.45;}else{b.r=0;b.occ=0;}
+  S.pickup();memDid('bouncer','let the player into the '+B.vip.name);toast('VIP ACCESS','Get in before he changes his mind.',2.2);}
+function bouncerTalk(){const B=BOUNCER;if(!B)return;
+  if(SAMPLE&&!SAMPLE_OFF){dlgOpen(B.s,'claude');claudeTurn(B.s.talked?'[The player came back to you.]':'[The player just walked up to the VIP door.]');B.s.talked=true;return;}
+  dlgOpen(B.s,'script');B.s.talked=true;}
+function bouncerHit(){const B=BOUNCER;if(!B||B.st==='chase')return;if(DLG.on&&DLG.s===B.s)dlgClose(false);B.said=-9;bLine(pick(['Oh, you want problems?','Bad. Idea.','You just made my night.']),true);bSet('chase');memDid('bouncer','got hit by the player and chased them');}
+const JEALOUS=['She\'s with YOU? Sure. And I\'m the DJ.','What does she see in you? Honestly.','Oh, you brought a date. Cute. Still no.','Must be nice. Move.'];
+const MOVEIT=['Move. You\'re blocking my door.','Out of the way.','Do you live here now? Move.','Step aside, sneakers.'];
+function updateBouncer(dt){const B=BOUNCER;if(!B)return;const b=B.s;B.t+=dt;
+  const dP=Math.hypot(P.x-b.x,P.y-b.y),near=dP<2.6&&Math.abs(P.z-b.z)<1;
+  if((B.st==='flex'&&B.t>1.8)||(B.st==='search'&&B.t>1.4))bSet('idle');
+  if(B.st==='grab'&&B.t>1.4)bSet(B.back?'back':'idle');
+  if(B.st==='chase'){const a=Math.atan2(P.y-b.y,P.x-b.x),sp=2.7*dt,nx=b.x+Math.cos(a)*sp,ny=b.y+Math.sin(a)*sp,z=standAt(nx,ny,b.z);b.face=b.baseFace=a;
+    if(z===z&&Math.abs(z-b.z)<0.4){b.x=nx;b.y=ny;}else B.t=99;
+    if(dP<0.95&&Math.abs(P.z-b.z)<0.6){bShove(a,1.4);bLine(pick(['And stay out.','Next time I won\'t be this nice.','Bye.']),true);B.back=true;bSet('grab');}
+    else if(B.t>4||dP>7){B.back=true;bSet('back');}
+    return;}
+  if(B.st==='back'){const tx=B.post[0],ty=B.post[1],d=Math.hypot(tx-b.x,ty-b.y);
+    if(d<0.08||B.t>7){b.x=tx;b.y=ty;B.back=false;bSet('idle');}else{const a=Math.atan2(ty-b.y,tx-b.x),sp=Math.min(d,2.2*dt);b.x+=Math.cos(a)*sp;b.y+=Math.sin(a)*sp;b.face=b.baseFace=a;}return;}
+  // the VIP rope: walking in without his OK gets you grabbed and put back
+  const n=nodeAt(P.x,P.y,P.z),inside=n>=0&&inRects(B.vip.rects,n>>2,n&3);
+  if(!VIPPASS&&dP<0.72&&P.moving>0.3&&B.st==='idle'&&Math.abs(P.z-b.z)<0.6){bSet('grab');bShove(Math.atan2(P.y-b.y,P.x-b.x),0.6);B.said=-9;bLine(pick(['Back up.','Did you just walk into me?','Personal space. Mine.']),true);}
+  if(inside&&!VIPPASS){if(B.lastOut){P.x=B.lastOut[0];P.y=B.lastOut[1];}P.vx=P.vy=0;if(B.st!=='grab'){bSet('grab');shake=0.3;S.thud();B.said=-9;bLine(pick(['Whoa. Not on the list.','Where do you think you\'re going?','VIP. You are not VIP.']),true);}}
+  else if(!inside)B.lastOut=[P.x,P.y];
+  if(!near){B.wayT=0;b.baseFace=B.st==='idle'?B.face:b.baseFace;return;}
+  if(B.st==='idle'||B.st==='flex'||B.st==='search')b.baseFace=Math.atan2(P.y-b.y,P.x-b.x);
+  // a girl next to you: he gets jealous; if she vouches, he still searches you first
+  const g=GIRL_LIST.find(q=>Math.hypot(q.x-P.x,q.y-P.y)<2.6&&Math.abs(q.z-P.z)<1&&!q.solo);
+  if(g&&!VIPPASS){
+    if(now-B.jealT>14){B.jealT=now;B.said=-9;bLine(pick(JEALOUS),true);}
+    if(!B.vouch&&now-B.jealT>1.6&&now-B.jealT<3){
+      if(isSnark(g.girl)&&relScore(g.girl)<40){if(!B.refused){B.refused=true;girlSay(g,'Don\'t look at me. I don\'t know them.',true);}}
+      else{B.vouch=g.girl;girlSay(g,isSnark(g.girl)?'Ugh. They\'re with me. Fine.':'He\'s with me!',true);memDid(g.girl,'vouched for the player at the VIP door');
+        setTimeout(()=>{if(BOUNCER!==B||VIPPASS)return;B.said=-9;bLine('With YOU? Fine. Arms up. I\'m searching you first.',true);
+          setTimeout(()=>{if(BOUNCER!==B||VIPPASS)return;const r=bSearch();B.said=-9;bLine(r.took.length?'Mine now. Go, before I change my mind.':'Clean. Disgusting. Go.',true);vipGrant();},1500);},1100);}}}
+  // standing in his doorway
+  if(!VIPPASS&&dP<1.15&&P.moving<0.1&&B.st==='idle'){B.wayT+=dt;if(B.wayT>2.6){B.wayT=-4;B.said=-9;bLine(pick(MOVEIT),true);bSet('flex');}}else if(B.wayT>0)B.wayT=0;}
+// ---------- battery hint: she points you at the nearest battery and it shows on your map for 30 s ----------
+let HINT=null;
+function placeAt(x,y,z){const n=nodeAt(x,y,z);if(n<0)return null;for(const p of LV.places||[])if(inRects(p.rects,n>>2,n&3))return p.name;return null;}
+function batteryHint(s){let best=null,bd=1e9;for(const F_ of FLOORS)for(const q of F_.sprites){if(q.gone||q.kind!=='battery')continue;const d=Math.hypot(q.x-P.x,q.y-P.y)+Math.abs(q.z-P.z)*6;if(d<bd){bd=d;best=q;}}
+  if(!best)return {ok:false,why:'no_batteries_left'};HINT={x:best.x,y:best.y,z:best.z,until:now+30};
+  const ang=angDiff(Math.atan2(best.y-P.y,best.x-P.x),P.a),side=Math.abs(ang)<0.5?'straight ahead':Math.abs(ang)>2.4?'behind you':ang>0?'off to your right':'off to your left';
+  const dz=best.z-P.z,lvl=dz>1?'upstairs':dz<-1?'downstairs':'on this floor',pl=placeAt(best.x,best.y,best.z),steps=Math.max(3,Math.round(Math.hypot(best.x-P.x,best.y-P.y)*1.5));
+  if(s){s.lookAt={x:best.x,y:best.y,until:now+3};memDid(s.girl,'told the player where a battery was');}
+  if(best.vip)return {ok:true,where:'inside the '+(BOUNCER?BOUNCER.vip.name:'VIP area')+', behind the bouncer',note:'Marked on the player\'s map for 30 seconds. The bouncer only lets people in if a girl vouches or he gets a drink ticket.'};
+  return {ok:true,where:`${side}, ${lvl}, about ${steps} steps away`+(pl?`, in the ${pl}`:''),note:'Marked on the player\'s map for 30 seconds.'};}
+// ---------- cheering when you reach the booth ----------
+function girlsCheer(){let k=0;for(const s of GIRL_LIST){if(Math.hypot(s.x-P.x,s.y-P.y)>9||Math.abs(s.z-P.z)>2.2)continue;stopActs(s);s.dancing={style:'up',until:now+12};s.views=danceViews(s.girl,'up');s.rate=2;
+  const line=isSnark(s.girl)?pick(['Okay. That was actually kind of cool.','Fine. You did it. Happy?']):pick(['YOU DID IT! I\'m screaming!','THE BOOTH! I knew you could!']);
+  setTimeout(()=>toast(GIRLS[s.girl].name+':','"'+line+'"',2.4),1300+k*1500);k++;memDid(s.girl,'cheered when the player reached the booth');}}
+// ---------- her number, when she likes you as much as she can ----------
+let CONTACT=null;
+function giveNumber(s){const g=s.girl;if(!MEM[g]||MEM[g].number)return;MEM[g].number=true;PMEM[g]=Object.assign(PMEM[g]||{},{number:PHONE_NO[g]});savePM();
+  girlSay(s,isSnark(g)?'Fine. You win. Here\'s my number. Do not make it weird.':'Okay, give me your phone. I\'m putting my number in. Text me!',true);
+  setTimeout(()=>{CONTACT={g,until:now+6};S.pickup();toast('NEW CONTACT',GIRLS[g].name+' · '+PHONE_NO[g],3.4);},1200);
+  if(DLG.live&&DLG.s===s&&window.ETR_LIVE)ETR_LIVE.note('You just put your phone number in the player\'s phone because you like them a lot. Mention it in your own words.');}
+// ---------- the selfie: they line up behind you, a flash, and the photo lands on your phone ----------
+const SELFIE={on:false,phase:'',t:0,gs:[],flash:0,show:0,shoot:false,cd:0};const SELFIES=[];let photoCv=null,thumbEl=null;
+function freeSpot(x,y){for(const [ox,oy] of [[0,0],[0.2,0],[-0.2,0],[0,0.2],[0,-0.2]]){const z=standAt(x+ox,y+oy,P.z);if(z!==z||Math.abs(z-P.z)>0.3)return false;}return true;}
+function startSelfie(main,withFriend){if(SELFIE.on)return 'already_taking_one';if(EL.on&&inCab())return 'no_room_here';
+  let gs=[main];if(withFriend){const o=GIRL_LIST.find(q=>q!==main);if(o)gs.push(o);}
+  gs=gs.filter(q=>Math.hypot(q.x-P.x,q.y-P.y)<6&&Math.abs(q.z-P.z)<0.8);if(!gs.length)return 'too_far';
+  for(const off of [0,0.6,-0.6,1.2,-1.2,1.9,-1.9,2.6,-2.6,Math.PI]){const th=P.a+Math.PI+off;
+    const sp=gs.length===1?[[th,0.75]]:[[th+0.5,0.82],[th-0.5,0.82]],pts=sp.map(([a,r])=>[P.x+Math.cos(a)*r,P.y+Math.sin(a)*r]),cm=[P.x-Math.cos(th)*0.62,P.y-Math.sin(th)*0.62];
+    if(!pts.every(q=>freeSpot(q[0],q[1]))||!freeSpot(cm[0],cm[1]))continue;
+    Object.assign(SELFIE,{on:true,phase:'gather',t:0,th,cam:cm,flash:0,shoot:false,cd:0,gs:gs.map((q,i)=>({s:q,x0:q.x,y0:q.y,x1:pts[i][0],y1:pts[i][1],wasF:q.following,dur:clamp(Math.hypot(pts[i][0]-q.x,pts[i][1]-q.y)/2.2,0.5,2.6)}))});
+    for(const o of SELFIE.gs){const q=o.s;stopActs(q);q.selfie=true;if(q.r0===undefined)q.r0=q.r;q.r=0;q.views=SPR.girlV[q.girl+'Walk'];q.rate=GIRL_WALK_RATE;}
+    return gs.length===2?'taking it with both of you':'taking it';}
+  return 'no_room_here';}
+function updateSelfie(dt){const F=SELFIE;if(F.flash>0)F.flash=Math.max(0,F.flash-dt*2.4);if(F.show>0){F.show-=dt;if(F.show<=0&&thumbEl)thumbEl.classList.remove('show');}
+  if(!F.on)return;F.t+=dt;
+  if(F.phase==='gather'){let done=true;for(const o of F.gs){const q=o.s,k=Math.min(1,F.t/o.dur);if(k<1)done=false;
+      q.x=o.x0+(o.x1-o.x0)*k;q.y=o.y0+(o.y1-o.y0)*k;if(k<1)q.face=q.baseFace=Math.atan2(o.y1-o.y0,o.x1-o.x0);const z=standAt(q.x,q.y,q.z);if(z===z)q.z=z;}
+    if(done){F.phase='pose';F.t=0;F.cd=0;for(const o of F.gs){const q=o.s;q.views=isSnark(q.girl)?SPR.girlV[q.girl]:(SPR.girlV[q.girl+'_pose']||SPR.girlV[q.girl]);q.rate=GIRL_IDLE_RATE;}}}
+  else if(F.phase==='pose'){const c=3-Math.floor(F.t/0.6);if(c!==F.cd&&c>0){F.cd=c;toast('SELFIE',c+'...',0.7);S.click();}
+    for(const o of F.gs){o.s.face=o.s.baseFace=Math.atan2(F.cam[1]-o.s.y,F.cam[0]-o.s.x);}
+    if(F.t>1.8){F.phase='flash';F.t=0;F.shoot=true;F.flash=1;S.click();setTimeout(()=>S.click(),60);}}
+  else if(F.phase==='flash'&&F.t>0.6){F.on=false;F.phase='';F.show=5.5;const both=F.gs.length>1;
+    for(const o of F.gs){const q=o.s;q.selfie=false;q.views=SPR.girlV[q.girl];q.ghostT=0.5;q.home=q.baseFace=Math.atan2(P.y-q.y,P.x-q.x);if(o.wasF)startFollow(q);if(REL[q.girl])REL[q.girl].selfies++;
+      memDid(q.girl,'took a selfie with the player'+(both?' and '+GIRLS[F.gs.find(x=>x!==o).s.girl].name:''));}
+    selfieDone(F.gs.map(o=>o.s));}}
+function renderSelfie(){const sv=[dirX,dirY,plX,plY,cam.x,cam.y,cam.z,horizon,FX,FY,FZ,BDX,BDY,BDZ,FP];
+  const th=SELFIE.th;dirX=Math.cos(th);dirY=Math.sin(th);plX=-dirY*PLANE;plY=dirX*PLANE;cam.x=SELFIE.cam[0];cam.y=SELFIE.cam[1];cam.z=P.zv+1.05;horizon=H*0.47;
+  FX=cam.x;FY=cam.y;FZ=cam.z+0.05;BDX=dirX;BDY=dirY;BDZ=-0.06;FP=3.4;
+  try{renderScene();}catch(e){}
+  if(!photoCv)photoCv=mk(132,172);const c=photoCv.getContext('2d');c.imageSmoothingEnabled=false;
+  c.fillStyle='#f4f1ea';c.fillRect(0,0,132,172);
+  const cw=Math.round(W*0.62),ch=Math.round(cw*1.25),cx0=Math.round(W/2-cw/2),cy0=Math.round(clamp(horizon-ch*0.52,0,H-ch));
+  c.drawImage(sceneCv,cx0,cy0,cw,ch,6,6,120,150);
+  c.globalCompositeOperation='lighter';c.fillStyle='rgba(255,240,225,0.08)';c.fillRect(6,6,120,150);c.globalCompositeOperation='source-over';
+  c.fillStyle='#2a2430';c.font='9px monospace';c.textAlign='center';c.fillText(('ESCAPE THE RAVE · '+(LV.id==='fest'?'OPEN AIR':LV.id==='factory'?'AUDIO FACTORY':'INPUT')).slice(0,30),66,167);
+  [dirX,dirY,plX,plY,cam.x,cam.y,cam.z,horizon,FX,FY,FZ,BDX,BDY,BDZ,FP]=sv;}
+function selfieDone(gs){if(!photoCv)return;try{SELFIES.push(photoCv.toDataURL('image/png'));}catch(e){}if(SELFIES.length>6)SELFIES.shift();
+  if(!thumbEl)thumbEl=$('selfieThumb');if(thumbEl){thumbEl.getContext('2d').drawImage(photoCv,0,0);thumbEl.classList.add('show');}
+  toast('SELFIE SAVED','It\'s on your phone.',2);
+  for(const q of gs){if(DLG.on&&(DLG.s===q||DLG.f===q)){if(DLG.mode==='claude')claudeTurn('[Game event: the selfie just flashed. You are in the photo'+(gs.length>1?' with your friend':'')+'. React to how it came out.]');
+    else if(DLG.live&&window.ETR_LIVE)ETR_LIVE.note('The selfie just flashed and the player has the photo on their phone. React to how it came out.');break;}}}
 function girlSay(s,text,prio){if(DLG.on&&DLG.s===s){if(DLG.mode==='script')dlgPush(text,prio);else logAdd('her',text);}else toast(GIRLS[s.girl].name+':','"'+text+'"',3);}
-function girlArrived(s,dest){
+function girlArrived(s,dest,solo){
+  if(solo&&Math.hypot(P.x-s.x,P.y-s.y)>4.5){toast(GIRLS[s.girl].name+':',isSnark(s.girl)?`"I'm at the ${dest}. Not waiting forever."`:`"I'm at the ${dest}! Come find me!"`,3.2);return;}
   if(REL[s.girl]&&Math.hypot(P.x-s.x,P.y-s.y)<4.5)REL[s.girl].walks++;
   const place='the '+dest,loo=/bath|potty/i.test(dest);
   if(DLG.on&&DLG.s===s){
@@ -2295,61 +2500,130 @@ function girlArrived(s,dest){
     else if(DLG.mode==='claude')claudeTurn('[Game event: you and the player just arrived at '+place+'.]');
     else if(DLG.live)ETR_LIVE.note('You and the player just arrived at '+place+'. React to it in your own words.');
   } else toast(GIRLS[s.girl].name+':',loo?'"Ta-da! ...okay, it\'s the bathroom. Great acoustics though."':'"Here we are. The '+dest+'!"',3.4);}
+const PAIR={t:6,n:0,met:false};
+const CHIME={mira:{sweet:['Sonia, be nice. They\'re cute!','Don\'t mind her, she\'s like this before the drop.','Have either of you seen Molly?','Okay, we\'re all best friends now. That\'s the rule.'],
+    snarky:['Sonia, you\'re doing the fan thing again.','Can we go? It\'s loud and you\'re both talking.','Molly would like you. Molly likes everyone.','Wow. Riveting. Truly.']},
+  sonia:{sweet:['Mira, look at them, they\'re adorable.','Okay but did you HEAR that transition?','We should all dance. Right now.','Mira, they\'re a keeper. I\'m calling it.'],
+    snarky:['Mira, stop adopting strangers.','Is this your new friend? Cool. Thrilling.','I\'m filming. Can you two whisper?','The DJ is the only interesting thing here.']}};
+function updatePair(dt){const [a,b]=GIRL_LIST;if(!a||!b)return;const d=Math.hypot(a.x-b.x,a.y-b.y),near=d<3.2&&Math.abs(a.z-b.z)<0.8;
+  if(!near){if(d>6){PAIR.n=0;PAIR.met=false;}return;}
+  if(!PAIR.met){PAIR.met=true;memDid(a.girl,'hung out with '+GIRLS[b.girl].name);memDid(b.girl,'hung out with '+GIRLS[a.girl].name);}
+  if(DLG.on||Math.hypot(P.x-a.x,P.y-a.y)>9||PAIR.n>=4)return;
+  PAIR.t-=dt;if(PAIR.t>0)return;PAIR.t=9+Math.random()*5;PAIR.n++;
+  const sp=Math.random()<0.5?a:b,ot=sp===a?b:a;for(const [q,o] of [[a,b],[b,a]])q.lookAt={x:o.x,y:o.y,until:now+4};
+  toast(GIRLS[sp.girl].name+':','"'+pick(CHIME[sp.girl][MOOD[sp.girl]])+'"',3);}
 function updateGirls(dt){
   for(const s of GIRL_LIST){
     if(s.mk){s.mk.x=s.x-Math.sin(P.a)*0.34;s.mk.y=s.y+Math.cos(P.a)*0.34;s.mk.z=s.z+GIRL_H*0.93+Math.sin(now*3.2+s.ph)*0.03;s.mk.gone=!!s.talked||DLG.s===s;}
     const dP=Math.hypot(P.x-s.x,P.y-s.y);
-    if(s.leading){
-      if(dP>3.4&&Math.abs(P.z-s.z)<3){if(!s.waiting){s.waiting=true;s.views=SPR.girlV[s.girl];s.rate=GIRL_IDLE_RATE;if(!s.waitSaid){s.waitSaid=true;girlSay(s,'Keep up! This way!',true);}}
+    s.bob=s.dancing?(s.dancing.style==='up'?0.05:s.dancing.style==='spin'?0.035:0.022)*Math.abs(Math.sin(Math.PI*beatPos)):0;
+    if(s.selfie)continue;
+    if(s.following){
+      const close=dP<(s.comeOnce?1.2:1.5)&&Math.abs(P.z-s.z)<0.6;
+      if(close){if(s.comeOnce){waitHere(s);continue;}if(s.walkingF){s.walkingF=false;s.views=SPR.girlV[s.girl];s.rate=GIRL_IDLE_RATE;}s.baseFace=Math.atan2(P.y-s.y,P.x-s.x);s.path=[];s.pi=0;s.repT=0;continue;}
+      s.repT-=dt;
+      if(s.repT<=0||s.pi>=s.path.length){s.repT=0.7;const n=nodeAt(P.x,P.y,P.z);s.path=[];s.pi=0;
+        if(n>=0){const ix=n>>2,x=ix%MW,y=(ix/MW)|0;s.path=placePath(s,[[x,y,x,y,WD.lo[n]]]);}
+        if(!s.path.length){if(dP<2.5)continue;s.lostT+=0.7;if(s.lostT>6){waitHere(s);girlSay(s,isSnark(s.girl)?'I\'m not chasing you. I\'ll be here.':'Wait, where did you go? I\'ll wait here!',true);}continue;}
+        s.lostT=0;}
+      if(!s.walkingF){s.walkingF=true;s.views=SPR.girlV[s.girl+'Walk'];}
+      const sp=dP>3?2.3:1.6;s.rate=GIRL_WALK_RATE*sp/GIRL_WALK;walkStep(s,dt,sp,dP);continue;}
+    if(s.leading&&!s.solo){
+      if(dP>3.4&&Math.abs(P.z-s.z)<3){if(!s.waiting){s.waiting=true;s.views=SPR.girlV[s.girl];s.rate=GIRL_IDLE_RATE;if(!s.waitSaid){s.waitSaid=true;girlSay(s,isSnark(s.girl)?'Keep up. I am not waiting all night.':'Keep up! This way!',true);}}
         s.baseFace=s.face=Math.atan2(P.y-s.y,P.x-s.x);continue;}
       if(s.waiting&&dP>2.2)continue;
-      if(s.waiting){s.waiting=false;s.views=SPR.girlV[s.girl+'Walk'];s.rate=GIRL_WALK_RATE;}
-      while(s.pi+1<s.path.length){const n2=s.path[s.pi+1];if(WD.dr[n2[2]]>=0)break;let ok=true;
-        for(let k=1;k<=6&&ok;k++){const tx=s.x+(n2[0]-s.x)*k/6,ty=s.y+(n2[1]-s.y)*k/6;const z=standAt(tx,ty,s.z);if(z!==z||Math.abs(z-s.z)>0.7)ok=false;}
-        if(!ok)break;s.pi++;}
-      const wp=s.path[s.pi],dr=WD.dr[wp[2]];
-      if(dr>=0&&!doors[dr].auto&&doors[dr].open<0.9){const d=doors[dr];if(!d.opening){if(d.jammed){d.jammed=false;d.hits=3;bakeNav();if(dP<7){S.bust();shake=0.2;toast(GIRLS[s.girl].name+' kicks the jammed door open.','',1.8);}}else if(dP<6)S.door();d.opening=true;}s.face=Math.atan2(wp[1]-s.y,wp[0]-s.x);continue;}
-      const dx=wp[0]-s.x,dy=wp[1]-s.y,dd=Math.hypot(dx,dy),sp=GIRL_WALK*dt;
-      if(dd<=sp){s.x=wp[0];s.y=wp[1];s.pi++;}else{s.x+=dx/dd*sp;s.y+=dy/dd*sp;}
-      s.face+=clamp(angDiff(Math.atan2(dy,dx),s.face),-6*dt,6*dt);s.baseFace=s.face;
-      {const z=standAt(s.x,s.y,s.z);if(z===z)s.z=z;}
-      if(s.pi>=s.path.length){s.leading=false;s.arrivedAt=s.dest;s.views=SPR.girlV[s.girl];s.rate=GIRL_IDLE_RATE;s.r=s.r0||0.24;
-        s.home=s.baseFace=Math.atan2(P.y-s.y,P.x-s.x);girlArrived(s,s.dest);}
+      if(s.waiting){s.waiting=false;s.views=SPR.girlV[s.girl+'Walk'];s.rate=GIRL_WALK_RATE;}}
+    if(s.leading){
+      if(walkStep(s,dt,GIRL_WALK,dP)){const solo=s.solo;s.leading=false;s.solo=false;s.arrivedAt=s.dest;s.views=SPR.girlV[s.girl];s.rate=GIRL_IDLE_RATE;s.r=s.r0||0.24;
+        s.home=s.baseFace=Math.atan2(P.y-s.y,P.x-s.x);memDid(s.girl,(solo?'went to ':'walked the player to ')+'the '+s.dest);girlArrived(s,s.dest,solo);}
       continue;}
     if(s.dancing&&now>s.dancing.until){s.dancing=null;s.views=SPR.girlV[s.girl];s.rate=GIRL_IDLE_RATE;}
-    if((DLG.on&&DLG.s===s)||s.dancing)s.baseFace=Math.atan2(P.y-s.y,P.x-s.x);else s.baseFace=s.home;
+    if((DLG.on&&(DLG.s===s||DLG.f===s))||s.dancing)s.baseFace=Math.atan2(P.y-s.y,P.x-s.x);else if(s.lookAt&&now<s.lookAt.until)s.baseFace=Math.atan2(s.lookAt.y-s.y,s.lookAt.x-s.x);else s.baseFace=s.home;
   }
+  updateBouncer(dt);updateSelfie(dt);updatePair(dt);
 }
 // ---------- what the girls say when no chat backend is around (and while the live call connects) ----------
 const SCRIPT={
-  mira:[
+  mira:{sweet:[
     {say:['Oh my god, hiii! Okay, random, but have you seen Molly?','Hiii! Wait. Have you seen Molly? Tiny, glittery, hugs everyone?']},
     {ask:'She was literally right here. Glitter everywhere, hugs everyone. Have you seen her?',a:['No?','Who\'s Molly?','Maybe...'],
       r:['Ugh. She ALWAYS disappears right before the drop.','Molly! Everybody knows Molly. She shows up and suddenly everyone is your best friend.','Maybe?! If someone hugged you for ten minutes straight, that was her.'],miss:'You\'d know. Trust me, you\'d know.'},
     {say:['And now I lost Kitty too. Kitty is so chill. Like, TOO chill.']},
-    {say:['Last time we found her she was lying on the floor of the chill room, staring at the ceiling for an hour.']},
+    {ask:'Okay wait, your outfit? Ten out of ten. Did you plan it or is that just you?',a:['Planned it','Just me','Stop it'],r:['I can tell. Love a planner.','Naturally cute. Unfair.','Never. You\'re a vibe.'],miss:'Don\'t answer. It\'s a ten.'},
     {ask:'Is this your first rave?',a:['Yeah','No way','Kind of'],
       r:['Aww! Rule one: water. Rule two: never stand in front of the sub.','Same, babe. I\'ve been doing this since, like, forever.','Kind of counts. You\'re here, you\'re dancing, you\'re in.'],miss:'Doesn\'t matter. You\'re one of us now.'},
-    {say:['Is your phone at least charged? It\'s SO dark in here.']},
-  ],
-  miraOut:['Okay, if you see Molly, tell her I\'m by the speakers. And wake Kitty up! Love you, bye!'],
-  sonia:[
+    {say:['Is your phone at least charged? It\'s SO dark in here.']}],
+   snarky:[
+    {say:['Ugh. What. Oh. Have you seen Molly? No? Figures.','Hi. No. Wait. Have you seen Molly? Didn\'t think so.']},
+    {ask:'Is this your first rave? Be honest, it\'s obvious.',a:['Yeah','No way','Kind of'],r:['Yeah, the wide eyes gave it away.','Sure it isn\'t.','Kind of. Cute. Not really.'],miss:'Don\'t answer. I know.'},
+    {say:['Kitty\'s lying on the chill room floor again. At least she isn\'t talking to strangers.']},
+    {ask:'Why are you still standing here?',a:['Looking for the booth','You\'re fun','No reason'],r:['It\'s that way. Follow the bass.','I\'m not. But okay.','Cool. Riveting.'],miss:'Okay then.'},
+    {say:['Your phone\'s going to die, by the way. Just saying.']}]},
+  sonia:{sweet:[
     {say:['Oh my god. OH MY GOD. Do you hear this? This DJ is a genius.','Wait, wait, wait. Listen to this transition. This DJ is a GENIUS.']},
     {ask:'Are you trying to get to the booth? I know a shortcut!',a:['Yes!','Kind of','Lead the way'],r:['Say less. Follow me, stay close!','Say less. Follow me!','Okay, I like you. Follow me!'],miss:'Obviously you are. Follow me!',lead:true},
     {say:['I\'ve followed them since the warehouse days. Every set is on my phone. Every. Single. One.']},
-    {ask:'Also, you\'re actually so cute. Is that your phone light or are you just glowing?',a:['Phone light','Glowing','Stop it'],
-      r:['Liar. That\'s a glow.','I KNEW it.','I will not stop it.'],miss:'Don\'t answer. It\'s a glow.'},
-    {ask:'Who\'s your favorite DJ? Wait, don\'t tell me. It\'s this one, right?',a:['Obviously','Not really','Who?'],
-      r:['Correct answer.','I\'m going to pretend I didn\'t hear that.','WHO?! Oh, you poor baby.'],miss:'Correct answer.'},
-    {say:['When they dropped that edit at three AM I literally screamed. Out loud. People stared.']},
-    {say:['It\'s right through here. I\'ve done this like a thousand times.']},
-  ],
-  soniaOut:['Okay, I have to go film the drop. Byeee, cutie!'],
-  soniaOutLead:['Keep following me, we\'re SO close! Byeee!'],
-  soniaOutArrived:['Booth\'s probably the other way. Byeee, cutie!'],
-  after:{mira:['Still no Molly. Have you checked the speakers?','If you find Kitty, she\'s probably on the floor. Chilling.','Water! Drink water!'],
-    sonia:['Booth\'s that way. Probably.','Sorry about the bathroom thing. Great reverb though.','Did you hear that drop?!']}};
-const SUGGEST={mira:['Dance with me!','Got any gum?','Take me somewhere fun','Who\'s Molly?'],sonia:['Take me to the booth','Dance for me','Got a drink ticket?','Who\'s playing?']};
+    {ask:'Also, you\'re actually so cute. Is that your phone light or are you just glowing?',a:['Phone light','Glowing','Stop it'],r:['Liar. That\'s a glow.','I KNEW it.','I will not stop it.'],miss:'Don\'t answer. It\'s a glow.'},
+    {ask:'Who\'s your favorite DJ? Wait, don\'t tell me. It\'s this one, right?',a:['Obviously','Not really','Who?'],r:['Correct answer.','I\'m going to pretend I didn\'t hear that.','WHO?! Oh, you poor baby.'],miss:'Correct answer.'},
+    {say:['It\'s right through here. I\'ve done this like a thousand times.']}],
+   snarky:[
+    {say:['Shh. SHH. I\'m filming. What do you want?','Can you not stand in my shot? Thanks.']},
+    {ask:'You\'re trying to get to the booth, aren\'t you? Everyone is.',a:['Yes','Maybe','Show me'],r:['Fine. Follow me. Don\'t touch my phone.','Ugh. Fine. Follow me.','Bossy. Fine. Follow me.'],miss:'Obviously. Fine, follow me.',lead:true},
+    {say:['I\'ve followed this DJ since the warehouse days. You probably found them on an app.']},
+    {ask:'Who\'s your favorite DJ? Actually, don\'t tell me. It\'s wrong.',a:['This one','Someone else','Who?'],r:['Bandwagon.','Wrong.','Unbelievable.'],miss:'Yeah. Thought so.'},
+    {say:['It\'s through here. I\'ve done this a thousand times. Keep up.']}]},
+  bouncer:{mean:[{say:['What.','Can I help you? No. I can\'t.']},{say:['This is VIP. You are not VIP.']},{say:['And if you\'re thinking about sneaking in, I can see you. I can always see you.']}]}};
+const OUTRO={mira:{sweet:['Okay, if you see Molly, tell her I\'m by the speakers. Love you, bye!'],snarky:['Okay. Bye. Tell Molly I\'m mad at her.']},
+  sonia:{sweet:['Okay, I have to go film the drop. Byeee, cutie!'],snarky:['I\'m going to go stand somewhere you\'re not. Bye.']},
+  soniaLead:{sweet:['Keep following me, we\'re SO close! Byeee!'],snarky:['Keep walking. Don\'t make it weird.']},
+  soniaArrived:{sweet:['Booth\'s probably the other way. Byeee, cutie!'],snarky:['Booth\'s probably the other way. Good luck, I guess.']},
+  bouncer:{mean:['We\'re done. Move.','Bye. Don\'t come back.']}};
+const GREET={mira:{sweet:['Hiii, you\'re back!','Oh good, it\'s you again!'],snarky:['You again.','Oh. Hi. Still here?']},
+  sonia:{sweet:['Cutie! You came back!','There you are!'],snarky:['Oh. You.','Back already? Okay.']},bouncer:{mean:['You again? No.','What now?']}};
+const AFTER={mira:{sweet:['Still no Molly. Have you checked the speakers?','Water! Drink water!'],snarky:['Still here?','Go find the booth. Bye.']},
+  sonia:{sweet:['Booth\'s that way. Probably.','Did you hear that drop?!'],snarky:['I\'m filming.','Booth\'s that way. Probably.']}};
+const SAY={follow:{sweet:['Yes! Lead the way, I\'m right behind you.','Okay! Don\'t lose me!'],snarky:['Fine. Don\'t walk into anything.','Ugh. Fine. Go.']},
+  wait:{sweet:['Okay, I\'ll be right here!'],snarky:['Great. I\'ll just stand here then.']},
+  dance:{sweet:['Okay, watch this!','Yes! Dance with me!'],snarky:['One song. That\'s it.','Fine. Don\'t film me.']},
+  selfie:{sweet:['Yes! Get my good side!','Selfie! Everybody squeeze in!'],snarky:['Ugh. Fine. One.','Make it quick.']},
+  item:{sweet:['Here, take this!','For you. Don\'t say I never gave you anything!'],snarky:['Here. You owe me.','Take it before I change my mind.']},
+  take:{sweet:['Come on, I know a spot!'],snarky:['Fine. Follow me.']},
+  friend:{sweet:['Ooh, let\'s go find her!'],snarky:['Ugh. Fine, she\'s this way.']},
+  no:{sweet:['Hmm, not right now!'],snarky:['Ask nicely.','Maybe if you were nicer.','Earn it.','Hmm. No.']}};
+const JOIN={sweet:'Oh, who\'s this? Hiii!',snarky:'Oh great. Who\'s this?'};
+const JOINREPLY={sweet:'Be nice! They\'re with me.',snarky:'Nobody. They just keep following me around.'};
+const FREPLY={mira:{sweet:['Aww, me? Hi!','Okay, I like you.','Hehe, stop.'],snarky:['Don\'t drag me into this.','Why are you talking to me?','No comment.']},
+  sonia:{sweet:['Hiii! Yes?','You\'re sweet.','Okay, you can stay.'],snarky:['I\'m busy. Filming.','Not now.','Ask Mira.']}};
+const moodOf=g=>g==='bouncer'?'mean':MOOD[g];
+function scriptLines(s){if(s.talked)return [{text:pick(GREET[s.girl][moodOf(s.girl)]).replace('!',PMEM.name&&!s.bouncer&&!isSnark(s.girl)?', '+PMEM.name+'!':'!')}];
+  return SCRIPT[s.girl][moodOf(s.girl)].map(st=>Object.assign({},st,{text:st.say?pick(st.say):st.ask}));}
+function outLine(s){const g=s.girl,m=moodOf(g);if(g==='sonia')return pick((s.leading?OUTRO.soniaLead:s.arrivedAt?OUTRO.soniaArrived:OUTRO.sonia)[m]);return pick(OUTRO[g][m]);}
+function suggestFor(s){if(s.bouncer)return ['Let me in','Search me then','She\'s with me','Nice suit'];
+  return {mira:{sweet:['Follow me!','Dance with me!','Selfie!','Seen any batteries?','Who\'s Molly?'],snarky:['Why so moody?','Follow me','Please dance?','Got any gum?','Seen any batteries?']},
+    sonia:{sweet:['Take me to the booth','Dance for me','Selfie!','Got a drink ticket?','Who\'s playing?'],snarky:['Who\'s playing?','Take me to the booth','Please dance?','Selfie?','Seen any batteries?']}}[s.girl][MOOD[s.girl]];}
+function menuPrompt(s){return s.bouncer?pick(['You still here? What.','Well?']):isSnark(s.girl)?pick(['What. Do you need something?','Anything else?']):pick(['So what do you wanna do?','What now? I\'m in!']);}
+function menuOpts(){const s=DLG.s;if(s.bouncer)return ['Let me in','Search me','Bye'];
+  const o=[s.following?'Wait here':'Follow me','Dance!',DLG.f?'Selfie with both!':'Selfie!','Seen a battery?','Got anything?','Take me somewhere'];
+  const other=GIRL_LIST.find(q=>q!==s);if(other&&!DLG.f)o.push('Find '+GIRLS[other.girl].name[0]+GIRLS[other.girl].name.slice(1).toLowerCase());o.push('Bye');return o;}
+function menuPick(t){const s=DLG.s,g=DLG.g;dlgChips.innerHTML='';dlgChips.classList.remove('menu');S.click();memLine(g,'you',t);if(REL[g])REL[g].msgs++;
+  if(s.bouncer)bouncerMenu(t);
+  else{const m=MOOD[g],say=k=>dlgPush(pick(SAY[k][m]||SAY[k].sweet)),no=r=>dlgPush(r&&r.why==='not_in_the_mood'?pick(SAY.no.snarky):'Hmm, not right now.');
+    if(t==='Bye')DLG.menuOff=true;
+    else if(t==='Follow me'){startFollow(s);say('follow');}
+    else if(t==='Wait here'){waitHere(s);say('wait');}
+    else if(t==='Dance!'){const r=runGirlTool(s,'dance',{style:pick(['sway','hands_up','spin'])});if(r.ok)say('dance');else no(r);}
+    else if(/^Selfie/.test(t)){const r=runGirlTool(s,'take_selfie',{with_friend:!!DLG.f});if(r.ok)say('selfie');else if(r.why==='no_room_here')dlgPush('No room here. Somewhere more open?');else no(r);}
+    else if(t==='Seen a battery?'){const r=runGirlTool(s,'battery_hint',{});dlgPush(r.ok?(m==='snarky'?'Ugh. ':'Ooh, yes! ')+'It\'s '+r.where+'. Check your map.':'I think they\'re all gone. Sorry!');}
+    else if(t==='Got anything?'){const st=s.stash,want=battery<45&&st.battery>0?'battery':st.magic_water>0?'magic_water':st.gum>0?'gum':st.drink_ticket>0?'drink_ticket':'gum';
+      const r=runGirlTool(s,'give_item',{item:want});if(r.ok)say('item');else if(r.why==='not_in_the_mood')no(r);else dlgPush('My bag\'s empty. Sorry!');}
+    else if(t==='Take me somewhere'){const r=runGirlTool(s,'lead_player',{destination:'anywhere'});dlgPush(r.ok?pick(SAY.take[m])+' The '+r.walking_to+'.':'Hold on, I\'m already walking!');}
+    else if(/^Find /.test(t)){const r=runGirlTool(s,'lead_player',{destination:'friend'});if(r.ok)say('friend');else dlgPush('I don\'t know where she went.');}}
+  dlgNext();}
+function bouncerMenu(t){const B=BOUNCER;if(!B)return;
+  if(t==='Bye'){DLG.menuOff=true;return;}
+  if(t==='Let me in'){if(VIPPASS){dlgPush('You\'re in. Stop talking to me.');return;}if(canLetIn()){dlgPush('Fine. Go.');vipGrant();return;}bSet('flex');dlgPush(pick(['Not on the list. Move.','No. Next.','You? In there? No.']));return;}
+  if(t==='Search me'){const r=bSearch();dlgPush(r.took.length?'Arms up. ...I\'ll be keeping your '+r.took.join(', ')+'.':'Arms up. ...Nothing. Sad.');
+    if(!VIPPASS&&canLetIn()){dlgPush(B.paid?'A drink ticket. Fine. I didn\'t see you. Go.':'Fine. Go.');vipGrant();}else if(!VIPPASS)dlgPush('Still not on the list.');}}
 // ---------- Claude-powered chat (the claude.ai page) ----------
 let SAMPLE=null,SAMPLE_OFF=false;
 const INV={magic_water:0,gum:0,drink_ticket:0};let energyT=0,invEl=null,energyEl=null;
@@ -2362,6 +2636,8 @@ function giveItem(k,from){S.pickup();
 function useItem(k){if(!(INV[k]>0))return;
   if(k==='magic_water'){INV[k]--;energyT=30;drunkT=Math.min(drunkT,0.01);S.gulp();toast('MAGIC WATER','Hydrated. You move faster for 30 seconds.',2.4);}
   else if(k==='gum'){INV[k]--;S.click();toast('Minty fresh.','',1.6);}
+  else if(BOUNCER&&!VIPPASS&&Math.hypot(BOUNCER.s.x-P.x,BOUNCER.s.y-P.y)<2.6&&Math.abs(BOUNCER.s.z-P.z)<1){INV[k]--;STATS.taken=(STATS.taken||0)+1;BOUNCER.said=-9;
+    if(k==='drink_ticket'){BOUNCER.paid=true;bLine('...A drink ticket. Fine. I didn\'t see you.',true);vipGrant();}else bLine(k==='gum'?'Thanks. Still no.':'I\'ll keep this. Still no.',true);}
   else if(k==='drink_ticket'){const b=(LV.bars||[]).find(q=>Math.hypot(q[0]-P.x,q[1]-P.y)<2.4&&Math.abs((q[2]||0)-P.z)<1.2);
     if(!b){toast('No bar here','Take the ticket to a bar to cash it in.',2);return;}INV[k]--;drunkT=30;STATS.tequila++;S.gulp();toast('DRINK TICKET','The bartender pours you a tequila.',2.6);}
   invDraw();}
@@ -2371,36 +2647,93 @@ setTimeout(()=>{try{if(window.claude&&claude.use)claude.use('sample').then(f=>{S
 const PERSONA={
   mira:'You are Mira: a bubbly, fast-talking raver in a cropped black blazer with neon green ruffled shoulders, a mini skirt, garter stockings and platform boots, hair in a sleek low bun. You lost your two friends in the crowd: Molly, a glittery hugger who always vanishes right before the drop, and Kitty, who is so chill she ends up lying on the chill-room floor staring at the ceiling. You love asking people questions: their first rave, favourite DJs, festival stories, outfits.',
   sonia:'You are Sonia: a superfan with long purple-tipped braided pigtails, a neon green cut-out top and shorts, fingerless gloves and chunky combat boots, who films every set on her phone. You are obsessed with the DJ playing right now and have followed them since the warehouse days. You think the player is cute and say so in a friendly, playful way. Your running joke: your "shortcut to the booth" really leads to the bathroom.'};
+const MOODTXT={sweet:'Tonight you are in a SWEET mood: warm, bubbly and flirty in a playful PG way (compliments, teasing, "you\'re cute"), friendly and happy to help.',
+  snarky:'Tonight you are in a SNARKY mood: rude, dismissive and sarcastic. You act unimpressed, roll your eyes and keep answers short, but you still keep the conversation going and answer questions. Make the player earn favours: the first time they ask for something (a dance, an item, a selfie) refuse with attitude; when a tool says not_in_the_mood, refuse in character. Never cruel: nothing about looks, body or identity, and no swearing.'};
 const LVDESC={input:'INPUT, a dark underground club whose lights just died',factory:'the Audio Factory, a three-floor warehouse club',fest:'an open-air dance music festival on an island at dusk'};
-function claudeInstr(s){const g=s.girl,places=(LV.places||[]).map(p=>p.name).join(', ');return [
+const TOOLHELP=g=>[
+  '- lead_player: walk the player somewhere and they follow you. Any place here, the other girl\'s name to take them to her, or "anywhere" for a surprise.',
+  '- go_to: head somewhere on your own ("meet me at the bar").',
+  '- follow_player: tag along behind the player wherever they go. wait_here: stop and stay put. come_here: walk over to the player.',
+  '- dance: style "sway" (slow hip sway, arms up), "hands_up" (hands in the air on the beat) or "spin" (a spin into hands up).',
+  '- give_item: "battery" (a third of a phone charge, 1:40 on the clock), "magic_water" (burst of energy), "gum" or "drink_ticket" (for the bar, or to bribe the bouncer).',
+  '- battery_hint: tell the player where the nearest phone battery is; it gets marked on their map.',
+  '- take_selfie: pose for a selfie with the player, with_friend true to pull your friend in too. Say "say cheese" or similar.'].join('\n');
+function bouncerInstr(){const B=BOUNCER,g=GIRL_LIST.find(q=>Math.hypot(q.x-P.x,q.y-P.y)<2.6&&Math.abs(q.z-P.z)<1);return [
+  `You are the BOUNCER at the door of the ${B?B.vip.name:'VIP area'} in "Escape The Rave", a pixel-art video game set at ${LVDESC[LV.id]||'a rave'} in New York. You are a huge, bald guy in a white suit.`,
+  'Personality: extremely mean, rude and sarcastic to the player. Roast their outfit, their dance moves and their "energy". Keep telling them to get out of your way. You are jealous whenever a girl is with them. You love searching people and keeping what you find.',
+  'Rules: you only let someone in if a girl vouched for them or they gave you a drink ticket; the let_in tool checks this, so if it refuses, refuse too. When they want in, search them first with search_player: it takes everything in their pockets and you keep it. If they get pushy, shove_player.',
+  'Keep replies to one or two short sentences. PG-13: no swearing, no slurs, nothing about race, body or identity, and no real threats. Stay in character; if asked, you are a character in the game. Lines in [brackets] are game events.',
+  'Right now: '+(g?`${GIRLS[g.girl].name} is standing next to the player, which annoys you.`:'the player is alone.')+` Their pockets: ${invText()||'empty'}.`+(B&&B.searched?' You already searched them.':'')+(VIPPASS?' You already let them in.':''),
+  memText('bouncer')].filter(Boolean).join('\n');}
+function groupInstr(s,f){const A=s.girl,B_=f.girl,places=(LV.places||[]).map(p=>p.name).join(', ');return [
+  `You are writing for TWO characters in "Escape The Rave", a pixel-art video game: ${GIRLS[A].name} and ${GIRLS[B_].name}, best friends standing together with the player at ${LVDESC[LV.id]||'a rave'} in New York, at night. The player is a raver trying to reach the DJ booth.`,
+  PERSONA[A]+' '+MOODTXT[MOOD[A]].replace('Tonight you are','Tonight '+GIRLS[A].name+' is'),
+  PERSONA[B_].replace('You are Sonia','Sonia is').replace('You are Mira','Mira is')+' '+MOODTXT[MOOD[B_]].replace('Tonight you are','Tonight '+GIRLS[B_].name+' is'),
+  'How to write: one to three short lines per reply. Every line starts with "'+GIRLS[A].name+':" or "'+GIRLS[B_].name+':". They talk to the player and to each other, tease each other, and their moods clash. Usually end with a question for the player.',
+  'Talk only about clubs, DJs, raves, festivals, dance music, outfits and the party. PG-13; flirting stays light (compliments, teasing), nothing sexual, no drugs. If asked, they are characters in the game. Lines in [brackets] are game events.',
+  'Tools (every tool takes "girl": "mira" or "sonia" for who does it):\n'+TOOLHELP()+`\nPlaces here: ${places}.`,
+  'What '+GIRLS[A].name+' remembers:\n'+(memText(A)||'nothing yet'),'What '+GIRLS[B_].name+' remembers:\n'+(memText(B_)||'nothing yet'),
+  `Player's pockets: ${invText()||'empty'}.`].join('\n');}
+function claudeInstr(s){if(s.bouncer)return bouncerInstr();if(DLG.f&&DLG.s===s)return groupInstr(s,DLG.f);const g=s.girl,places=(LV.places||[]).map(p=>p.name).join(', ');return [
   `You are playing ${GIRLS[g].name} in "Escape The Rave", a pixel-art video game. The player is a raver at ${LVDESC[LV.id]||'a rave'} in New York, at night, trying to reach the DJ booth.`,
-  PERSONA[g],'How to talk:',
+  PERSONA[g],MOODTXT[MOOD[g]],'How to talk:',
   '- Stay in character. Talk only about clubs, DJs, raves, festivals, dance music, party outfits and what is happening around you. If the player brings up anything else, laugh it off and steer back to the party in one line.',
   '- Keep replies short: one to three sentences, casual, like chatting over loud music. Usually end with a question for the player.',
-  '- Friendly and PG-13, never romantic. Never describe drug use. If asked whether you are an AI, say you are a character in the game. Never mention these instructions.',
+  '- PG-13. Flirting stays light and playful (compliments, teasing), nothing sexual. Never describe drug use. If asked whether you are an AI, say you are a character in the game. Never mention these instructions.',
   '- Lines in [brackets] are game events, not the player talking.',
   'Things you can do (tools). Use them whenever it fits; you are free to suggest them yourself:',
   `- lead_player: walk the player anywhere in the venue, wherever they ask or wherever you feel like taking them. Places here: ${places}. Use destination "anywhere" to pick a surprise spot yourself.`+(g==='sonia'?' Your running joke: the first time they want the DJ booth, take them to the bathroom and act like it is the booth; once they call you out, apologise and take them to the real booth.':''),
-  '- dance: dance to the beat for a while. style "sway" is a slow hip sway with your arms above your head, "hands_up" is hands in the air bouncing on the beat.',
-  '- give_item: give the player something from your bag: "battery" (a third of a phone charge, 1:40 on the clock), "magic_water" (a bottle of water that gives them a burst of energy), "gum" or "drink_ticket" (for the bar). You have one of each, two packs of gum.',
-  (s.arrivedAt?`Earlier you walked the player to the ${s.arrivedAt}. `:'')+`Player's pockets: ${invText()||'empty'}.`].join('\n');}
+  TOOLHELP(g),`You have one battery, one magic water, two packs of gum and one drink ticket. Your friend ${GIRLS[g==='mira'?'sonia':'mira'].name} is somewhere in the venue too.`,
+  'If you like the player a lot, the game may have you give them your number; you can mention it.',
+  (s.following?'You are following the player around right now. ':'')+`Player's pockets: ${invText()||'empty'}.`,
+  memText(g)?'What you remember:\n'+memText(g):''].filter(Boolean).join('\n');}
+function grudgeOK(s,kind){if(!isSnark(s.girl))return true;const r=REL[s.girl];if(relScore(s.girl)>=30||(r&&r.nice>0)||/\b(please|pls|plz|nicely)\b/i.test(DLG.lastYou||''))return true;
+  s.refused=s.refused||{};if(s.refused[kind])return true;s.refused[kind]=true;return false;}
+const MOODNOPE={ok:false,why:'not_in_the_mood',tip:'You are in a snarky mood: refuse this time with attitude. If they ask again or ask nicely, you will do it.'};
+function runBouncerTool(name,a){const B=BOUNCER;if(!B)return {ok:false,why:'no_bouncer'};
+  if(name==='search_player'){const r=bSearch();return {ok:true,took:r.took,note:r.took.length?'You keep these.':'Their pockets were empty.',drink_ticket_found:r.found_drink_ticket};}
+  if(name==='let_in'){if(VIPPASS)return {ok:true,note:'Already in.'};if(!canLetIn())return {ok:false,why:'nobody_vouched_and_no_drink_ticket'};vipGrant();return {ok:true};}
+  if(name==='shove_player'){bShove(Math.atan2(P.y-B.s.y,P.x-B.s.x),1.1);bSet('grab');return {ok:true};}
+  return {ok:false,why:'unknown_tool'};}
 function runGirlTool(s,name,a){a=a||{};
-  if(name==='list_places')return {places:(LV.places||[]).map(p=>p.name),tip:'Use any of these, or "anywhere" for a surprise.'};
+  if(a.girl&&DLG.f&&String(a.girl).toLowerCase().includes(DLG.f.girl))s=DLG.f;
+  if(s.bouncer)return runBouncerTool(name,a);
+  if(name==='list_places')return {places:(LV.places||[]).map(p=>p.name),friend:GIRLS[s.girl==='mira'?'sonia':'mira'].name,tip:'Use any of these, the friend\'s name, or "anywhere" for a surprise.'};
+  if(name==='go_to'){const r=startLead(s,a.destination||a.place||'anywhere',true);if(['already_walking','unknown_place','cant_get_there','already_there'].includes(r))return {ok:false,why:r};return {ok:true,heading_to:r,note:'You are walking there on your own.'};}
+  if(name==='follow_player'){startFollow(s);return {ok:true,note:'You follow the player wherever they go now.'};}
+  if(name==='come_here'){startFollow(s,true);return {ok:true,note:'You are walking over to the player.'};}
+  if(name==='wait_here'||name==='stop'){waitHere(s);return {ok:true};}
+  if(name==='battery_hint'||name==='find_battery')return batteryHint(s);
+  if(name==='take_selfie'){if(!grudgeOK(s,'selfie'))return MOODNOPE;const r=startSelfie(s,!!a.with_friend);return /^taking/.test(r)?{ok:true,status:r}:{ok:false,why:r};}
   if(name==='lead_player'){const r=startLead(s,a.destination||a.place||'anywhere');
     if(r==='already_walking'||r==='unknown_place'||r==='cant_get_there'||r==='already_there')return {ok:false,why:r,places:(LV.places||[]).map(p=>p.name)};
     return {ok:true,walking_to:r,note:'You are walking there now; the player follows you.'};}
-  if(name==='dance'){if(s.leading)return {ok:false,why:'walking_right_now'};const style=/sway|slow|sexy|sultry|hip|body|grind|whine|twerk/i.test(a.style||'')?'sway':/up|hand|jump|bounce|rave|arms/i.test(a.style||'')?'up':(Math.random()<0.5?'sway':'up');
+  if(name==='dance'){if(s.leading)return {ok:false,why:'walking_right_now'};if(!grudgeOK(s,'dance'))return MOODNOPE;if(s.following)stopActs(s);
+    const style=/spin|twirl|turn/i.test(a.style||'')?'spin':/sway|slow|sexy|sultry|hip|body|grind|whine|twerk/i.test(a.style||'')?'sway':/up|hand|jump|bounce|rave|arms/i.test(a.style||'')?'up':pick(['sway','up','spin']);
     const secs=Math.max(4,Math.min(30,+a.seconds||12));s.dancing={style,until:now+secs};s.views=danceViews(s.girl,style);s.rate=style==='sway'?1:2;s.baseFace=Math.atan2(P.y-s.y,P.x-s.x);
-    if(REL[s.girl])REL[s.girl].dances++;return {ok:true,style:style==='up'?'hands_up':'sway',seconds:secs};}
+    if(REL[s.girl])REL[s.girl].dances++;memDid(s.girl,'danced for the player ('+(style==='up'?'hands up':style)+')');return {ok:true,style:style==='up'?'hands_up':style,seconds:secs};}
   if(name==='give_item'||name==='give_charge'){const it=name==='give_charge'?'battery':String(a.item||'').toLowerCase().replace(/[^a-z_]/g,'_');
     const key=/batt|charge|power/.test(it)?'battery':/water/.test(it)?'magic_water':/gum/.test(it)?'gum':/ticket|drink/.test(it)?'drink_ticket':null;
     if(!key)return {ok:false,why:'not_in_bag',has:Object.keys(s.stash).filter(k=>s.stash[k]>0)};
-    if(!(s.stash[key]>0))return {ok:false,why:'out_of_'+key};s.stash[key]--;if(REL[s.girl])REL[s.girl].items++;giveItem(key,GIRLS[s.girl].name);return {ok:true,gave:key};}
+    if(!(s.stash[key]>0))return {ok:false,why:'out_of_'+key};if(!grudgeOK(s,'item'))return MOODNOPE;s.stash[key]--;if(REL[s.girl])REL[s.girl].items++;giveItem(key,GIRLS[s.girl].name);memDid(s.girl,'gave the player '+ITEM[key].toLowerCase());return {ok:true,gave:key};}
   return {ok:false,why:'unknown_tool'};}
-function girlTools(s){const run=n=>inp=>runGirlTool(s,n,inp);return [
-  {name:'lead_player',description:'Walk the player to any place in the venue. destination: a place name, or "anywhere" for a surprise.',inputSchema:{type:'object',properties:{destination:{type:'string'}},required:['destination']},execute:run('lead_player')},
-  {name:'dance',description:'Dance for a while. style: "sway" (slow hip sway, arms above the head) or "hands_up" (hands in the air to the beat). seconds: 4 to 30.',inputSchema:{type:'object',properties:{style:{type:'string',enum:['sway','hands_up']},seconds:{type:'number'}},required:['style']},execute:run('dance')},
-  {name:'give_item',description:'Give the player an item from your bag: battery (a third of a phone charge), magic_water, gum or drink_ticket.',inputSchema:{type:'object',properties:{item:{type:'string',enum:['battery','magic_water','gum','drink_ticket']}},required:['item']},execute:run('give_item')}];}
+function girlTools(s){const run=n=>inp=>runGirlTool(s,n,inp);
+  if(s.bouncer)return [
+    {name:'search_player',description:'Search the player. Takes everything in their pockets; you keep it.',inputSchema:{type:'object',properties:{}},execute:run('search_player')},
+    {name:'let_in',description:'Step aside and let the player into the VIP area. Only works if a girl vouched for them or you got a drink ticket.',inputSchema:{type:'object',properties:{}},execute:run('let_in')},
+    {name:'shove_player',description:'Shove the player back from the door.',inputSchema:{type:'object',properties:{}},execute:run('shove_player')}];
+  const grp=!!(DLG.f&&DLG.s===s),G=p=>grp?Object.assign({girl:{type:'string',enum:['mira','sonia'],description:'who does it'}},p):p,T=(name,description,props,req)=>({name,description,inputSchema:{type:'object',properties:G(props||{}),required:req||[]},execute:run(name)});
+  return [
+  T('lead_player','Walk the player somewhere; they follow. destination: a place name, the other girl\'s name, or "anywhere" for a surprise.',{destination:{type:'string'}},['destination']),
+  T('go_to','Head somewhere on your own without the player. destination: a place name or "anywhere".',{destination:{type:'string'}},['destination']),
+  T('follow_player','Follow the player wherever they go.'),T('wait_here','Stop following or walking and stay put.'),T('come_here','Walk over to the player.'),
+  T('dance','Dance for a while. style: "sway" (slow hip sway, arms up), "hands_up" (hands in the air on the beat) or "spin". seconds: 4 to 30.',{style:{type:'string',enum:['sway','hands_up','spin']},seconds:{type:'number'}},['style']),
+  T('give_item','Give the player an item from your bag: battery (a third of a phone charge), magic_water, gum or drink_ticket.',{item:{type:'string',enum:['battery','magic_water','gum','drink_ticket']}},['item']),
+  T('battery_hint','Tell the player where the nearest phone battery is; it gets marked on their map.'),
+  T('take_selfie','Pose for a selfie with the player. with_friend: true to pull your friend into it too.',{with_friend:{type:'boolean'}})];}
+function splitGroup(t,mainG){const out=[];for(const ln of String(t).split(/\n+/)){const m=ln.match(/^\s*\**\s*(MIRA|SONIA)\s*\**\s*:\s*(.*)$/i);
+  if(m){if(m[2].trim())out.push({g:m[1].toLowerCase(),text:m[2].trim()});}else if(ln.trim()){if(out.length)out[out.length-1].text+=' '+ln.trim();else out.push({g:mainG,text:ln.trim()});}}
+  return out.length?out:[{g:mainG,text:'...'}];}
 async function claudeTurn(text){
   if(!SAMPLE||!DLG.on||DLG.mode!=='claude')return;const s=DLG.s;
   if(DLG.busy){DLG.pendingUser=DLG.pendingUser?DLG.pendingUser+'\n'+text:text;return;}
@@ -2408,10 +2741,15 @@ async function claudeTurn(text){
   if(!DLG.hist.length)DLG.hist.push({role:'user',content:claudeInstr(s)+'\n\n'+text});
   else{const last=DLG.hist[DLG.hist.length-1];if(last.role==='user')last.content+='\n'+text;else DLG.hist.push({role:'user',content:text});}
   const el=logAdd('her','...');const ty={el,full:'',shown:0};DLG.typing=ty;
-  const ac=new AbortController();DLG.abort=ac;
-  try{const r=await SAMPLE(DLG.hist.slice(),{modelTier:'quick',cache:false,signal:ac.signal,tools:girlTools(s),onText:({text})=>{ty.full=text||'';}});
-    const t=((r&&r.text)||'').trim()||'...';ty.full=t;if(DLG.s===s)DLG.hist.push({role:'assistant',content:t});}
-  catch(e){if(DLG.s!==s||!DLG.on)return;const code=e&&e.code;
+  const ac=new AbortController();DLG.abort=ac;const gen=DLG.gen;
+  const grp=!!DLG.f;if(grp)ty.full='...';
+  try{const r=await SAMPLE(DLG.hist.slice(),{modelTier:'quick',cache:false,signal:ac.signal,tools:girlTools(s),onText:({text})=>{if(!grp)ty.full=text||'';}});
+    if(gen!==DLG.gen||DLG.s!==s){const row=ty.el.parentNode;if(row&&ty.full==='...')row.remove();return;}
+    const t=((r&&r.text)||'').trim()||'...';DLG.hist.push({role:'assistant',content:t});
+    if(grp&&DLG.f&&DLG.s===s){const parts=splitGroup(t,s.girl);ty.full=ty.el.textContent='';const row=ty.el.parentNode;if(row)row.remove();DLG.typing=null;
+      for(const p of parts){DLG.tq.push(p);memLine(p.g,p.g,p.text);const o=p.g===s.girl?DLG.f.girl:s.girl;memLine(o,p.g,p.text);}}
+    else{ty.full=t;memLine(s.girl,s.girl,t);}}
+  catch(e){if(DLG.s!==s||!DLG.on||gen!==DLG.gen)return;const code=e&&e.code;
     if(code==='not_granted'){SAMPLE_OFF=true;ty.full='(Chat is switched off. Here are her usual lines.)';DLG.busy=false;dlgRestartScript();return;}
     ty.full=code==='rate_limited'?'Hold on, the bass is too loud. Say that again in a sec?':'Sorry, what? The music is SO loud.';}
   DLG.busy=false;DLG.abort=null;
@@ -2419,86 +2757,110 @@ async function claudeTurn(text){
 // ---------- the dialog / chat panel ----------
 const DLG={on:false,s:null,g:null,mode:'script',t:0,q:[],cur:null,shown:0,hold:0,chipT:0,arrived:false,blipN:0,video:null};
 const DLG_CPS=20;
-let dlgEl=null,dlgTxt,dlgChips,dlgName,dlgCv,dlgCtx,dlgLog,dlgIn,dlgSt;
+let dlgEl=null,dlgTxt,dlgChips,dlgName,dlgCv,dlgCtx,dlgCtx2,dlgLog,dlgIn,dlgSt;
 function dlgInit(){if(dlgEl)return;dlgEl=$('dlg');dlgTxt=$('dlgText');dlgChips=$('dlgChips');dlgName=$('dlgName');dlgCv=$('dlgCv');dlgCtx=dlgCv.getContext('2d');
-  dlgLog=$('dlgLog');dlgIn=$('dlgIn');dlgSt=$('dlgSt');
+  dlgLog=$('dlgLog');dlgIn=$('dlgIn');dlgSt=$('dlgSt');dlgCtx2=$('dlgCv2').getContext('2d');
   dlgEl.addEventListener('pointerdown',e=>e.stopPropagation());
   for(const ev of ['keydown','keyup'])dlgIn.addEventListener(ev,e=>e.stopPropagation());
   $('dlgX').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();dlgClose(true);});
   $('dlgForm').addEventListener('submit',e=>{e.preventDefault();dlgSendUser(dlgIn.value);dlgIn.value='';});}
 const pick=a=>a[(Math.random()*a.length)|0];
 function dlgStatus(t){if(dlgSt)dlgSt.textContent=t||'';}
-function logAdd(who,text){const d=document.createElement('div');d.className='m '+who;const b=document.createElement('b');b.textContent=who==='you'?'YOU':GIRLS[DLG.g].name;
+function logAdd(who,text,g){const d=document.createElement('div');d.className='m '+who;const b=document.createElement('b');b.textContent=who==='you'?'YOU':GIRLS[g||DLG.g].name;if(g&&who!=='you')b.style.color=GIRLS[g].col;
   const sp=document.createElement('span');sp.textContent=text;d.append(b,sp);dlgLog.appendChild(d);while(dlgLog.children.length>40)dlgLog.firstChild.remove();dlgLog.scrollTop=dlgLog.scrollHeight;return sp;}
 function dlgChipsShow(list,onPick){dlgChips.innerHTML='';list.forEach((txt,i)=>{const b=document.createElement('button');b.type='button';b.textContent=txt;
   b.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();onPick(i,txt);});dlgChips.appendChild(b);});}
 function dlgOpen(s,mode){dlgInit();if(DLG.on)dlgClose(false);
-  Object.assign(DLG,{on:true,s,g:s.girl,mode,t:0,q:[],cur:null,shown:0,hold:0,chipT:0,arrived:!!s.arrivedAt,blipN:0,video:null,typing:null,busy:false,hist:[],pendingUser:null,
-    idleT:0,nudges:0,sent:0,live:false,livePending:false,liveQueue:[],liveEl:null,youEl:null,abort:null,outro:false});
+  Object.assign(DLG,{on:true,s,g:s.girl,mode,gen:(DLG.gen||0)+1,t:0,q:[],cur:null,shown:0,hold:0,chipT:0,arrived:!!s.arrivedAt,blipN:0,video:null,typing:null,busy:false,hist:[],pendingUser:null,
+    idleT:0,nudges:0,sent:0,live:false,livePending:false,liveQueue:[],liveEl:null,youEl:null,abort:null,outro:false,f:null,tq:[],menuOff:false,walkT:0,numT:0,chimeT:14,lastYou:''});
+  dlgEl.classList.remove('duo');dlgChips.classList.remove('menu');
   dlgEl.style.setProperty('--gc',GIRLS[s.girl].col);dlgName.textContent=GIRLS[s.girl].name;dlgTxt.textContent='';dlgChips.innerHTML='';dlgLog.innerHTML='';dlgStatus('');
   dlgEl.classList.add('show');dlgEl.classList.toggle('chat',mode!=='script');
   $('mini').classList.add('dlg');$('hud').classList.add('dlgon');objEl.classList.remove('show');
   s.baseFace=Math.atan2(P.y-s.y,P.x-s.x);
   if(mode==='script')dlgRestartScript();
-  else dlgChipsShow(SUGGEST[s.girl],(i,t)=>dlgSendUser(t));}
+  else dlgChipsShow(suggestFor(s),(i,t)=>dlgSendUser(t));}
 function dlgRestartScript(){DLG.mode='script';dlgEl.classList.remove('chat');dlgChips.innerHTML='';
-  DLG.q=SCRIPT[DLG.g].map(st=>Object.assign({},st,{text:st.say?pick(st.say):st.ask}));DLG.outro=false;dlgNext();}
-function dlgPush(text,prio){const st={text};if(prio){DLG.q.unshift(st);if(DLG.cur&&!DLG.cur.ask){DLG.shown=DLG.cur.text.length;DLG.hold=Math.min(DLG.hold,0.25);}}else DLG.q.push(st);}
-function dlgNext(){dlgChips.innerHTML='';
-  if(!DLG.q.length&&!DLG.outro&&!DLG.livePending){DLG.outro=true;const s=DLG.s,g=DLG.g;
-    DLG.q=[{text:pick(g==='mira'?SCRIPT.miraOut:s.leading?SCRIPT.soniaOutLead:s.arrivedAt?SCRIPT.soniaOutArrived:SCRIPT.soniaOut),out:true}];}
+  DLG.q=scriptLines(DLG.s);DLG.outro=false;dlgNext();}
+function dlgPush(text,prio,g){const st={text:g&&g!==DLG.g?GIRLS[g].name+': '+text:text,g};if(prio){DLG.q.unshift(st);if(DLG.cur&&!DLG.cur.ask){DLG.shown=DLG.cur.text.length;DLG.hold=Math.min(DLG.hold,0.25);}}else DLG.q.push(st);}
+function dlgNext(){dlgChips.innerHTML='';dlgChips.classList.remove('menu');
+  if(!DLG.q.length&&!DLG.outro&&!DLG.livePending&&DLG.mode==='script'&&!DLG.menuOff){DLG.cur={text:menuPrompt(DLG.s),menu:true};DLG.shown=0;DLG.chipT=0;DLG.hold=0;return;}
+  if(!DLG.q.length&&!DLG.outro&&!DLG.livePending){DLG.outro=true;DLG.q=[{text:outLine(DLG.s),out:true}];}
   const c=DLG.q.shift();if(!c){if(DLG.livePending){DLG.cur={text:pick(['Hold on...','Wait, THIS song!','...'])};DLG.shown=0;DLG.hold=2.2;return;}dlgClose(false);return;}
-  DLG.cur=c;DLG.shown=0;DLG.chipT=0;DLG.hold=0.9+c.text.length*0.028;if(c.lead)startLead(DLG.s,'bathroom');}
-function dlgAnswer(i){const c=DLG.cur;if(!c||!c.ask||c.answered)return;if(REL[DLG.g])REL[DLG.g].msgs++;c.answered=true;dlgChips.innerHTML='';S.click();DLG.q.unshift({text:c.r[i]});DLG.hold=0;}
+  DLG.cur=c;DLG.shown=0;DLG.chipT=0;DLG.hold=0.9+c.text.length*0.028;memLine(DLG.g,c.g||DLG.g,c.text);if(c.lead)startLead(DLG.s,'bathroom');}
+function dlgAnswer(i){const c=DLG.cur;if(!c||!c.ask||c.answered)return;if(REL[DLG.g])REL[DLG.g].msgs++;memLine(DLG.g,'you',c.a[i]);c.answered=true;dlgChips.innerHTML='';S.click();DLG.q.unshift({text:c.r[i]});DLG.hold=0;}
 function dlgSkip(){const c=DLG.cur;if(!c)return;if(DLG.shown<c.text.length)DLG.shown=c.text.length;else if(!c.ask||c.answered)DLG.hold=0;}
 function dlgSendUser(text){text=String(text||'').trim().slice(0,300);if(!text||!DLG.on||DLG.mode==='script')return;
-  logAdd('you',text);relText(DLG.g,text);DLG.idleT=0;if(++DLG.sent>=2)dlgChips.innerHTML='';S.click();
+  logAdd('you',text);relText(DLG.g,text);DLG.idleT=0;DLG.lastYou=text;learnName(text);memLine(DLG.g,'you',text);if(DLG.f){memLine(DLG.f.girl,'you',text);relText(DLG.f.girl,text);}if(++DLG.sent>=2)dlgChips.innerHTML='';S.click();
+  if(DLG.mode==='live'&&DLG.f&&new RegExp('\\b'+DLG.f.girl+'\\b','i').test(text)){const f=DLG.f;setTimeout(()=>{if(DLG.f!==f)return;const l=pick(FREPLY[f.girl][MOOD[f.girl]]);logAdd('her',l,f.girl);memLine(DLG.g,f.girl,l);if(DLG.live)ETR_LIVE.note(`${GIRLS[f.girl].name} (your friend, standing with you) just answered the player: "${l}". React if you want.`);},1300);}
   if(DLG.mode==='claude')claudeTurn(text);
   else if(DLG.mode==='live'){if(DLG.live)ETR_LIVE.type(text);else DLG.liveQueue.push(text);}}
 function dlgClose(byPlayer){if(!DLG.on)return;DLG.on=false;
   if((DLG.live||DLG.livePending)&&window.ETR_LIVE)ETR_LIVE.stop();if(DLG.abort)try{DLG.abort.abort();}catch(e){}
   DLG.live=false;DLG.livePending=false;DLG.video=null;DLG.typing=null;
-  const s=DLG.s;if(s){s.talked=true;if(!s.leading)s.baseFace=s.home;}
-  DLG.s=null;if(dlgIn)dlgIn.blur();dlgEl.classList.remove('show');$('mini').classList.remove('dlg');$('hud').classList.remove('dlgon');if(byPlayer)S.click();}
+  const s=DLG.s;if(s){s.talked=true;if(!s.leading&&!s.following)s.baseFace=s.home;}
+  DLG.s=null;DLG.f=null;if(dlgIn)dlgIn.blur();dlgEl.classList.remove('show');$('mini').classList.remove('dlg');$('hud').classList.remove('dlgon');if(byPlayer)S.click();}
 function liveApi(s){const mine=()=>DLG.on&&DLG.s===s;return{
   status:t=>{if(mine())dlgStatus(t);},
   onVideo:v=>{if(!mine()){ETR_LIVE.stop();return;}Object.assign(DLG,{video:v,live:true,livePending:false,mode:'live'});dlgEl.classList.add('chat');
-    if(!dlgChips.firstChild&&DLG.sent<2)dlgChipsShow(SUGGEST[s.girl],(i,t)=>dlgSendUser(t));
+    {const mt=memText(s.girl);if(mt)ETR_LIVE.note('What you remember about this player (from the game):\n'+mt.slice(0,1700));}
+    if(DLG.f)ETR_LIVE.note(`Your friend ${GIRLS[DLG.f.girl].name} is standing with you and the player. She is in a ${MOOD[DLG.f.girl]} mood tonight and will chime in.`);
+    if(!dlgChips.firstChild&&DLG.sent<2)dlgChipsShow(suggestFor(s),(i,t)=>dlgSendUser(t));
     for(const t of DLG.liveQueue.splice(0))ETR_LIVE.type(t);},
-  onHer:(t,done)=>{if(!mine())return;if(!DLG.liveEl)DLG.liveEl=logAdd('her','');DLG.liveEl.textContent=t;dlgLog.scrollTop=dlgLog.scrollHeight;if(done)DLG.liveEl=null;},
-  onYou:(t,done)=>{if(!mine())return;if(done)relText(s.girl,t);if(!DLG.youEl)DLG.youEl=logAdd('you','');DLG.youEl.textContent=t;dlgLog.scrollTop=dlgLog.scrollHeight;if(done)DLG.youEl=null;},
+  onHer:(t,done)=>{if(!mine())return;if(!DLG.liveEl)DLG.liveEl=logAdd('her','');DLG.liveEl.textContent=t;dlgLog.scrollTop=dlgLog.scrollHeight;if(done){DLG.liveEl=null;memLine(s.girl,s.girl,t);}},
+  onYou:(t,done)=>{if(!mine())return;if(done){relText(s.girl,t);memLine(s.girl,'you',t);learnName(t);DLG.lastYou=t;}if(!DLG.youEl)DLG.youEl=logAdd('you','');DLG.youEl.textContent=t;dlgLog.scrollTop=dlgLog.scrollHeight;if(done)DLG.youEl=null;},
   tool:(name,args)=>runGirlTool(s,name,args||{}),
   onEnd:()=>{if(!mine())return;DLG.live=false;DLG.video=null;logAdd('her','(call ended)');dlgStatus('');setTimeout(()=>{if(DLG.s===s&&!DLG.live)dlgClose(false);},2500);},
   onFail:why=>{if(!mine()||!DLG.livePending)return;DLG.livePending=false;dlgStatus('LIVE UNAVAILABLE'+(why?' · '+why:''));
     if(SAMPLE&&!SAMPLE_OFF){DLG.mode='claude';dlgEl.classList.add('chat');claudeTurn('[The player just walked up to you. Start the conversation.]');}
     else{toast('LIVE CHAT DIDN\'T START',(why||'error')+'. Talk to her again to retry.',3.4);if(DLG.mode!=='script')dlgRestartScript();}}};}
 function girlTalk(s){
+  if(s.bouncer){bouncerTalk();return;}
+  if(DLG.on&&DLG.f===s){try{dlgIn.focus();}catch(e){}return;}
   if(REL[s.girl])REL[s.girl].talk++;
   if(DLG.on&&DLG.s===s){if(DLG.mode==='script')dlgSkip();else{try{dlgIn.focus();}catch(e){}}return;}
   if(window.ETR_LIVE&&ETR_LIVE.available&&ETR_LIVE.available()){dlgOpen(s,'live');DLG.livePending=true;
-    logAdd('her',pick(s.girl==='mira'?['Hiii! Hold on, it\'s so loud...','Oh my god, hi! One sec...']:['Wait, wait. Hi! Hold on...','Oh, hey cutie! One sec...']));
-    dlgStatus('CALLING · ALLOW MIC FOR VOICE');ETR_LIVE.start(s.girl,liveApi(s));s.talked=true;return;}
+    logAdd('her',pick(isSnark(s.girl)?['What. Hold on.','Ugh, one sec.']:s.girl==='mira'?['Hiii! Hold on, it\'s so loud...','Oh my god, hi! One sec...']:['Wait, wait. Hi! Hold on...','Oh, hey cutie! One sec...']));
+    dlgStatus('CALLING · ALLOW MIC FOR VOICE');ETR_LIVE.start(s.girl,liveApi(s),{mood:MOOD[s.girl]});s.talked=true;return;}
   if(SAMPLE&&!SAMPLE_OFF){dlgOpen(s,'claude');claudeTurn(s.talked?'[The player came back to talk to you again.]':'[The player just walked up to you. Start the conversation.]');s.talked=true;return;}
-  if(!s.talked){dlgOpen(s,'script');return;}
-  toast(GIRLS[s.girl].name+':','"'+pick(SCRIPT.after[s.girl])+'"',2.6);}
+  dlgOpen(s,'script');s.talked=true;}
+function dlgResetClaude(){DLG.hist=[];DLG.gen=(DLG.gen||0)+1;if(DLG.abort)try{DLG.abort.abort();}catch(e){}DLG.abort=null;DLG.busy=false;DLG.pendingUser=null;
+  if(DLG.typing&&DLG.typing.full==='...'){const r=DLG.typing.el.parentNode;if(r)r.remove();DLG.typing=null;}}
+function groupJoin(o){const s=DLG.s;DLG.f=o;o.talked=true;if(REL[o.girl])REL[o.girl].talk++;dlgEl.classList.add('duo');dlgEl.style.setProperty('--fc',GIRLS[o.girl].col);
+  dlgName.textContent=GIRLS[s.girl].name+' + '+GIRLS[o.girl].name;memDid(s.girl,'chatted with the player together with '+GIRLS[o.girl].name);memDid(o.girl,'chatted with the player together with '+GIRLS[s.girl].name);
+  if(DLG.mode==='claude'){dlgResetClaude();claudeTurn(`[${GIRLS[o.girl].name} just walked up and joined you and the player.]`);}
+  else if(DLG.mode==='live'){if(DLG.live)ETR_LIVE.note(`Your friend ${GIRLS[o.girl].name} just walked up and is standing with you and the player. She is in a ${MOOD[o.girl]} mood tonight and will chime in. Say hi to her.`);DLG.chimeT=5;}
+  else if(DLG.mode==='script'){dlgPush(JOIN[MOOD[o.girl]],false,o.girl);dlgPush(JOINREPLY[MOOD[s.girl]]);if(DLG.cur&&DLG.cur.menu)dlgNext();}}
+function groupLeave(){const o=DLG.f;DLG.f=null;dlgEl.classList.remove('duo');dlgName.textContent=GIRLS[DLG.g].name;if(DLG.mode==='claude')dlgResetClaude();
+  if(DLG.live&&o)ETR_LIVE.note(`${GIRLS[o.girl].name} wandered off.`);}
 function updateDialog(dt){
-  if(!DLG.on)return;const s=DLG.s;DLG.t+=dt;if(REL[s.girl])REL[s.girl].chatT+=dt;
-  if(!s.leading&&Math.hypot(P.x-s.x,P.y-s.y)>(DLG.mode==='script'?5.5:7.5)){if(REL[s.girl])REL[s.girl].left++;dlgClose(false);toast(GIRLS[s.girl].name+':','"Wait, I wasn\'t done!"',2.2);return;}
-  if(dlgEl.classList.contains('walk')!==!!s.leading){dlgEl.classList.toggle('walk',!!s.leading);dlgLog.scrollTop=dlgLog.scrollHeight;}
+  if(!DLG.on)return;const s=DLG.s;DLG.t+=dt;if(REL[s.girl])REL[s.girl].chatT+=dt;if(DLG.f&&REL[DLG.f.girl])REL[DLG.f.girl].chatT+=dt*0.7;
+  if(!s.leading&&!s.following&&!s.selfie&&Math.hypot(P.x-s.x,P.y-s.y)>(DLG.mode==='script'?5.5:7.5)){if(REL[s.girl])REL[s.girl].left++;dlgClose(false);toast(GIRLS[s.girl].name+':',s.bouncer?'"Good. Keep walking."':'"Wait, I wasn\'t done!"',2.2);return;}
+  if(!s.bouncer){const o=GIRL_LIST.find(q=>q!==s);
+    if(o&&!DLG.f&&!o.solo&&Math.hypot(o.x-P.x,o.y-P.y)<3&&Math.abs(o.z-P.z)<0.8&&Math.hypot(o.x-s.x,o.y-s.y)<4.5)groupJoin(o);
+    else if(DLG.f&&!DLG.f.following&&!DLG.f.selfie&&(Math.hypot(DLG.f.x-P.x,DLG.f.y-P.y)>5.5||Math.abs(DLG.f.z-P.z)>1))groupLeave();}
+  DLG.walkT=P.moving>0.25?1.4:Math.max(0,DLG.walkT-dt);
+  {const cmp=!!(s.leading||s.following||SELFIE.on||DLG.walkT>0);if(dlgEl.classList.contains('walk')!==cmp){dlgEl.classList.toggle('walk',cmp);dlgLog.scrollTop=dlgLog.scrollHeight;}}
+  DLG.numT-=dt;if(DLG.numT<=0){DLG.numT=1;for(const q of [s,DLG.f])if(q&&!q.bouncer&&MEM[q.girl]&&!MEM[q.girl].number&&relScore(q.girl)>=NUMBER_AT){giveNumber(q);break;}}
+  if(DLG.mode==='live'&&DLG.live&&DLG.f&&!DLG.liveEl){DLG.chimeT-=dt;if(DLG.chimeT<=0){DLG.chimeT=16+Math.random()*9;const f=DLG.f,l=pick(CHIME[f.girl][MOOD[f.girl]]);logAdd('her',l,f.girl);memLine(s.girl,f.girl,l);
+    ETR_LIVE.note(`${GIRLS[f.girl].name} (your friend, standing with you) just said: "${l}". React if you want.`);}}
   let talking=false;
   if(DLG.mode==='script'){const c=DLG.cur;
     if(c){
       if(DLG.shown<c.text.length){talking=true;const before=DLG.shown|0;DLG.shown=Math.min(c.text.length,DLG.shown+dt*DLG_CPS);
-        for(let k=before;k<(DLG.shown|0);k++){if(/[A-Za-z]/.test(c.text[k])&&(DLG.blipN++%2===0))S.blip(DLG.g);}
+        for(let k=before;k<(DLG.shown|0);k++){if(/[A-Za-z]/.test(c.text[k])&&(DLG.blipN++%2===0))S.blip(c.g||DLG.g);}
         dlgTxt.textContent=c.text.slice(0,DLG.shown|0);}
+      else if(c.menu){if(!dlgChips.firstChild){dlgChips.classList.add('menu');dlgChipsShow(menuOpts(),(i,t)=>menuPick(t));}
+        DLG.chipT+=dt;if(DLG.chipT>24){DLG.menuOff=true;dlgNext();}}
       else if(c.ask&&!c.answered){
         if(!dlgChips.firstChild)dlgChipsShow(c.a,i=>dlgAnswer(i));
         DLG.chipT+=dt;if(DLG.chipT>4.5){c.answered=true;dlgChips.innerHTML='';if(c.miss)DLG.q.unshift({text:c.miss});DLG.hold=0;}}
       else{DLG.hold-=dt;if(DLG.hold<=0){if(c.out){dlgClose(false);return;}dlgNext();}}}}
   else{
-    const ty=DLG.typing;
-    if(ty&&ty.shown<ty.full.length){talking=true;const before=ty.shown|0;ty.shown=Math.min(ty.full.length,ty.shown+dt*DLG_CPS);
-      for(let k=before;k<(ty.shown|0);k++){if(/[A-Za-z]/.test(ty.full[k])&&(DLG.blipN++%2===0))S.blip(DLG.g);}
+    let ty=DLG.typing;
+    if((!ty||ty.shown>=ty.full.length)&&DLG.tq.length){const p=DLG.tq.shift();ty=DLG.typing={el:logAdd('her','',p.g),full:p.text,shown:0,g:p.g};}
+    if(ty&&ty.shown<ty.full.length){talking=ty.g||true;const before=ty.shown|0;ty.shown=Math.min(ty.full.length,ty.shown+dt*DLG_CPS);
+      for(let k=before;k<(ty.shown|0);k++){if(/[A-Za-z]/.test(ty.full[k])&&(DLG.blipN++%2===0))S.blip(ty.g||DLG.g);}
       ty.el.textContent=ty.full.slice(0,ty.shown|0);dlgLog.scrollTop=dlgLog.scrollHeight;}
     if(DLG.mode==='claude'&&!DLG.busy&&!talking&&document.activeElement!==dlgIn&&!dlgIn.value){DLG.idleT+=dt;
       if(DLG.idleT>15&&DLG.nudges<2){DLG.idleT=0;DLG.nudges++;claudeTurn('[The player has gone quiet for a bit. Keep chatting.]');}}
@@ -2506,14 +2868,17 @@ function updateDialog(dt){
     if(DLG.mode==='live'&&!DLG.live&&!DLG.livePending&&DLG.cur)DLG.cur=null;}
   // portrait: the live persona when there is one, otherwise the stand-in close-up, both through the sprite filter
   if(DLG.video&&DLG.video.videoWidth){const v=DLG.video,vw=v.videoWidth,vh=v.videoHeight,sz=Math.min(vw,vh)*0.72;spriteFilter(v,(vw-sz)/2,Math.max(0,vh*0.12),sz,sz,dlgCtx);}
-  else drawPortrait(DLG.g,now,talking);
+  else drawPortrait(DLG.g,now,talking===true||talking===DLG.g||(talking&&DLG.mode==='script'&&!(DLG.cur&&DLG.cur.g&&DLG.cur.g!==DLG.g)),dlgCtx);
+  if(DLG.f)drawPortrait(DLG.f.girl,now+1.3,talking===DLG.f.girl||(DLG.mode==='script'&&DLG.cur&&DLG.cur.g===DLG.f.girl&&DLG.shown<DLG.cur.text.length),dlgCtx2);
 }
 // stand-in portrait: face crops from the sprite sheet; mouth moves by flipping between expressions while she talks
-function drawPortrait(g,t,talk){
-  if(!atlasOK(g)){spriteFilter(renderPortrait(g,t,talk),0,0,PORT.S,PORT.S,dlgCtx);return;}
+function drawPortrait(g,t,talk,cx){cx=cx||dlgCtx;
+  if(g==='bouncer'){const M=window.ETR_BOUNCER,A=IMG.bouncer_atlas;if(!M||!A)return;const f=M.frames[talk&&Math.floor(t/0.22)%2?'flex':'idle'],fw=f[2],k=f===M.frames.flex?0.27:0.5,sz=Math.round(fw*k);
+    cx.imageSmoothingEnabled=false;cx.fillStyle='#120a1e';cx.fillRect(0,0,48,48);cx.drawImage(A,f[0]+Math.round((fw-sz)/2),f[1]+1,sz,sz,0,0,48,48);return;}
+  if(!atlasOK(g)){spriteFilter(renderPortrait(g,t,talk),0,0,PORT.S,PORT.S,cx);return;}
   const M=ETR_GIRLS[g],keys=Object.keys(M.frames).filter(k=>k.startsWith(g+':'));if(!keys.length)return;
   let k=keys[0];if(talk)k=keys[Math.floor(t/0.17)%keys.length];else if((t%4.2)<0.16)k=keys[1];
-  const f=M.frames[k];dlgCtx.imageSmoothingEnabled=false;dlgCtx.clearRect(0,0,48,48);dlgCtx.drawImage(IMG['girlatlas_'+g],f[0],f[1],f[2],f[3],0,0,48,48);}
+  const f=M.frames[k];cx.imageSmoothingEnabled=false;cx.clearRect(0,0,48,48);cx.drawImage(IMG['girlatlas_'+g],f[0],f[1],f[2],f[3],0,0,48,48);}
 const LINES={girl:["Booth? Follow the kick. It gets louder.","Can't hear you!","Main room's past the red neon. Go!","My phone died an hour ago. Good luck.","Bathroom's a no. Trust me."],
   man:["Main room is through the neon arch.","Keep it moving.","Some doors back there stick. Hit 'em.","You got a charger? No? Then walk.","Exit's chained. Booth is the only way out."]};
 function press(b){
@@ -2539,37 +2904,45 @@ function press(b){
         toast(cheatOn?'CHEAT: UNLIMITED TIME':'CHEAT OFF',cheatOn?'Battery holds at 22%.':'The 5-minute clock is back.',2.4);return;}}
     if(DLG.on&&(!f.spr||f.spr===DLG.s||!f.spr.girl)){if(DLG.mode==='script')dlgSkip();else{try{dlgIn.focus();}catch(e){}}return;}
     S.talk();
-    if(f.spr&&f.spr.girl)girlTalk(f.spr);
+    if(f.spr&&f.spr.bouncer)bouncerTalk();
+    else if(f.spr&&f.spr.girl)girlTalk(f.spr);
     else if(f.spr&&f.spr.kind==='person'){const L=LINES[f.spr.who]||LINES.man;toast('"'+L[(Math.random()*L.length)|0]+'"','',2.4);}
     else if(f.spr&&f.spr.kind==='dj'||f.booth)toast('"Get up here!"','',1.6);
     else toast('"Hello?"','Nobody answers.',1.2);}
   else if(b==='hit'){hitT=0.28;S.swing();shake=0.12;
     if(f.door&&f.door.jammed){const d=f.door;d.hits++;d.shake=1;shake=0.35;setTimeout(()=>S.thud(),70);
       if(d.hits>=3){d.jammed=false;d.opening=true;bakeNav();doorsOpened++;setTimeout(()=>S.bust(),90);toast('BANG.','The door gives way.',1.6);}else toast(d.hits===1?'It moved a little.':'Almost...','',1);}
-    else if(f.spr&&f.spr.girl){setTimeout(()=>S.thud(),60);if(REL[f.spr.girl])REL[f.spr.girl].hits++;girlSay(f.spr,'Ow?! Rude.',true);}
+    else if(f.spr&&f.spr.bouncer){setTimeout(()=>S.thud(),60);bouncerHit();}
+    else if(f.spr&&f.spr.girl){setTimeout(()=>S.thud(),60);if(REL[f.spr.girl])REL[f.spr.girl].hits++;memDid(f.spr.girl,'got hit by the player');girlSay(f.spr,'Ow?! Rude.',true);}
     else if(f.spr&&f.spr.kind==='person'){setTimeout(()=>S.thud(),60);shake=0.18;shove(f.spr);}
   }
 }
-function winGame(){if(partyT>0)return;partyT=10;S.win();toast('YOU MADE IT TO THE BOOTH','The DJ hands you the aux.',3);winDelay=3.4;}
+function winGame(){if(partyT>0)return;partyT=10;S.win();toast('YOU MADE IT TO THE BOOTH','The DJ hands you the aux.',3);winDelay=3.4;girlsCheer();}
 function fmtLeft(){const t=Math.max(0,Math.ceil(battery/100*LEVEL_SECS));return Math.floor(t/60)+':'+String(t%60).padStart(2,'0');}
 function endScreen(kind){
   const e=$('end');e.className='overlay '+kind;e.style.display='flex';
   const mm=Math.floor(gameTime/60),ss=String(Math.floor(gameTime%60)).padStart(2,'0');
   if(kind==='win'){$('endTitle').textContent='YOU MADE IT TO THE BOOTH';$('endText').textContent='The DJ hands you the aux. The crowd goes off.';}
   else{$('endTitle').textContent='PHONE DIED';$('endText').textContent='Total darkness. You are lost in the rave.';}
-  const st=[['TIME',`${mm}:${ss}`],['BATTERIES',STATS.batteries],['MAGIC WATER',STATS.magic_water],['GUM',STATS.gum],['DRINK TICKETS',STATS.drink_ticket],['TEQUILA',STATS.tequila],['DOORS',doorsOpened]];
+  const st=[['TIME',`${mm}:${ss}`],['BATTERIES',STATS.batteries],['MAGIC WATER',STATS.magic_water],['GUM',STATS.gum],['DRINK TICKETS',STATS.drink_ticket],['TEQUILA',STATS.tequila],['DOORS',doorsOpened],['SELFIES',SELFIES.length]];
+  if(STATS.taken)st.push(['BOUNCER TOOK',STATS.taken]);
   $('endStats').innerHTML=st.map(([k,v])=>`<div>${k}<b>${v}</b></div>`).join('');
   endMeters();
 }
-const VERDICT={mira:{top:"You're coming to every rave with me now.",mid:"You're a good one. Text me if you find Molly.",low:"Who? Oh. Hi. Bye."},
-  sonia:{top:"You're definitely in my next video.",mid:"Cute. Friend cute. We'll see.",low:"Hi... and bye, loser."}};
+const VERDICT={mira:{sweet:{top:"You're coming to every rave with me now.",mid:"You're a good one. Text me if you find Molly.",low:"Aww. Hi. Bye!"},
+    snarky:{top:"Fine. You can come to the next one. Don't tell anyone.",mid:"You're okay. For a stranger.",low:"Who? Oh. Hi. Bye."}},
+  sonia:{sweet:{top:"You're definitely in my next video.",mid:"Cute. Friend cute. We'll see.",low:"Hi... and bye, cutie."},
+    snarky:{top:"Ugh. You can be in my next video. Don't make it weird.",mid:"You're fine. Just fine.",low:"Hi... and bye, loser."}}};
 const ZNAME={top:'BOYFRIEND MATERIAL',mid:'FRIEND ZONE',low:'HI/BYE LOSER!'};
 function endMeters(){
   const order=['mira','sonia'],z=sc=>sc>=67?'top':sc>=34?'mid':'low',scores={};for(const g of order)scores[g]=relScore(g);
   $('endMeters').innerHTML='<div class="mzones"><span>BOYFRIEND<br>MATERIAL</span><span>FRIEND<br>ZONE</span><span>HI/BYE<br>LOSER!</span></div>'+
     order.map(g=>`<div class="mcol" style="--gc:${GIRLS[g].col}"><canvas width="48" height="48" data-g="${g}"></canvas><span class="nm">${GIRLS[g].name}</span>`+
       `<div class="mbar"><div class="mmark" data-sc="${scores[g]}"><i></i><b>${scores[g]}</b></div></div><span class="mverd" style="color:${z(scores[g])==='top'?'#ff5aa0':z(scores[g])==='mid'?'#ffd23f':'#7d8b9d'}">${ZNAME[z(scores[g])].replace(' ','<br>')}</span></div>`).join('');
-  $('endQuotes').innerHTML=order.map(g=>`<div style="margin-top:6px"><b style="color:${GIRLS[g].col}">${GIRLS[g].name}</b>"${VERDICT[g][z(scores[g])]}"</div>`).join('');
+  $('endQuotes').innerHTML=order.map(g=>`<div style="margin-top:6px"><b style="color:${GIRLS[g].col}">${GIRLS[g].name}</b>"${VERDICT[g][MOOD[g]][z(scores[g])]}"`+(MEM[g]&&MEM[g].number?`<br><span class="num">${GIRLS[g].name}'S NUMBER <i>${PHONE_NO[g]}</i></span>`:'')+`</div>`).join('')+
+    (SELFIES.length?`<div class="selfies">${SELFIES.map((u,i)=>`<img src="${u}" style="transform:rotate(${(i%2?3:-3)}deg)" alt="selfie">`).join('')}</div>`:'');
+  const LVN={input:'INPUT',factory:'the Audio Factory',fest:'the Open Air festival'};
+  for(const g of order){if(!REL[g]||!REL[g].talk)continue;const pm=PMEM[g]||{};PMEM[g]=Object.assign(pm,{met:(pm.met||0)+1,last:LVN[LV.id]||'a rave',zone:z(scores[g])});}savePM();
   for(const c of $('endMeters').querySelectorAll('canvas')){const g=c.dataset.g,x=c.getContext('2d');x.imageSmoothingEnabled=false;
     if(atlasOK(g)){const M=ETR_GIRLS[g],k=Object.keys(M.frames).find(k=>k.startsWith(g+':'));if(k){const f=M.frames[k];x.drawImage(IMG['girlatlas_'+g],f[0],f[1],f[2],f[3],0,0,48,48);}}}
   requestAnimationFrame(()=>requestAnimationFrame(()=>{for(const m of $('endMeters').querySelectorAll('.mmark'))m.style.bottom=m.dataset.sc+'%';}));}
@@ -2592,7 +2965,7 @@ function update(dt){
   if(state==='play'||state==='dying'){
     gameTime+=dt;
     // movement
-    const canMove=state==='play'&&!(EL.on&&EL.state!=='idle'&&inCab());
+    const canMove=state==='play'&&!(EL.on&&EL.state!=='idle'&&inCab())&&!SELFIE.on;
     // left-thumb stick (analog) + keyboard
     const DZ=0.14,sx=input.sx||0,sy=input.sy||0;
     const ax=Math.abs(sx)>DZ?Math.sign(sx)*Math.pow((Math.abs(sx)-DZ)/(1-DZ),1.5):0;
@@ -2805,8 +3178,9 @@ let fpsAcc=0,fpsN=0,perfChecked=0;
 function loop(t){
   requestAnimationFrame(loop);
   const tt=t/1000;let dt=lastT?tt-lastT:0.016;lastT=tt;if(dt>0.05)dt=0.05;
-  if(state==='play'||state==='dying'||state==='win'){update(dt);renderScene();renderVolume();drawMini();}
+  if(state==='play'||state==='dying'||state==='win'){update(dt);if(SELFIE.shoot){SELFIE.shoot=false;renderSelfie();}renderScene();renderVolume();drawMini();}
   frame(dctx);frameNo++;
+  if(SELFIE.flash>0){dctx.fillStyle=`rgba(255,255,255,${Math.min(1,SELFIE.flash)})`;dctx.fillRect(0,0,dispW,dispH);}
   if(state==='play'&&!trans){fpsAcc+=dt;fpsN++;if(fpsAcc>2.5){const fps=fpsN/fpsAcc;fpsAcc=0;fpsN=0;
     if(fps<40&&renderScale>0.72){renderScale=Math.max(0.72,renderScale-0.12);setupBuffers();}
     else if(fps>57&&renderScale<1&&perfChecked<3){perfChecked++;renderScale=Math.min(1,renderScale+0.08);setupBuffers();}}}
@@ -2830,6 +3204,15 @@ window.ETR={reach:(sx,sy,sz,tx,ty,tz)=>{const a=nodeAt(sx,sy,sz),b=nodeAt(tx,ty,
       for(let d=0;d<4;d++){const nx=x+(d===0?1:d===1?-1:0),ny=y+(d===2?1:d===3?-1:0);if(nx<0||ny<0||nx>=MW||ny>=MH)continue;const m=ny*MW+nx;for(let k=0;k<WD.N[m];k++){const e=m*4+k;if(!seen[e]&&walkLink(i,j,m,k)){seen[e]=1;q.push(e);}}}
       if(EL.on&&i===EL.i)for(let k=0;k<WD.N[i];k++){const e=i*4+k;if(!seen[e]){seen[e]=1;q.push(e);}}}return false;},
   clearDoorways,newGame,duck:v=>{if(A.master&&A.ctx)A.master.gain.setTargetAtTime(0.85*v,A.ctx.currentTime,0.25);},girls:()=>GIRL_LIST,dlg:DLG,talkTo:i=>girlTalk(GIRL_LIST[i]),bathPath:s=>placePath(s,LV.bath).map(p=>[p[0],p[1],p[2]&3]),say:t=>dlgSendUser(t),tool:(i,n,a)=>runGirlTool(GIRL_LIST[i],n,a),inv:()=>INV,setSample:f=>{SAMPLE=f;},lead:(i,d)=>startLead(GIRL_LIST[i],d),answer:i=>dlgAnswer(i),
+  mood:()=>MOOD,mem:g=>memText(g),pm:()=>PMEM,b:()=>BOUNCER&&{x:BOUNCER.s.x,y:BOUNCER.s.y,z:BOUNCER.s.z,st:BOUNCER.st,vip:BOUNCER.vip.name,pass:VIPPASS,face:BOUNCER.face},
+  tp:(x,y,a,zr)=>{const z=standAt(x,y,zr===undefined?P.z:zr);P.x=x;P.y=y;if(a!==undefined)P.a=a;if(z===z){P.z=z;P.zv=z;P.zvel=0;}},
+  selfie:(i,f)=>startSelfie(GIRL_LIST[i],f),follow:i=>startFollow(GIRL_LIST[i]),hint:i=>batteryHint(GIRL_LIST[i]),menu:t=>menuPick(t),opts:()=>menuOpts(),
+  gpos:()=>GIRL_LIST.map(g=>({g:g.girl,x:+g.x.toFixed(2),y:+g.y.toFixed(2),z:+g.z.toFixed(2),f:!!g.following,l:!!g.leading,sel:!!g.selfie})),pp:()=>({x:+P.x.toFixed(2),y:+P.y.toFixed(2),z:+P.z.toFixed(2),a:+P.a.toFixed(2)}),
+  photo:()=>photoCv&&photoCv.toDataURL(),dlgState:()=>({on:DLG.on,g:DLG.g,mode:DLG.mode,f:DLG.f&&DLG.f.girl,cur:DLG.cur&&DLG.cur.text,menu:!!(DLG.cur&&DLG.cur.menu),walk:dlgEl&&dlgEl.classList.contains('walk')}),
+  skip:()=>{if(DLG.cur){DLG.shown=DLG.cur.text.length;DLG.hold=0;if(DLG.cur.ask&&!DLG.cur.answered)dlgAnswer(0);}},
+  boothReach:()=>{const vp=BOUNCER&&BOUNCER.vip;const f=new Float32Array(MW*MH*4);const B=LV.places.find(p=>p.name==='DJ booth');
+    field(f,(i,j)=>inRects(B.rects,i,j)?0:1e9,walkLink,(m,k)=>vp&&inRects(vp.rects,m,k)?1e6:0);const a=nodeAt(START.x,START.y,LV.base[START.f]||0);return a>=0?f[a]:-1;},
+  rel2:(g,o)=>Object.assign(REL[g],o),score:g=>relScore(g),
   st:()=>({battery:+battery.toFixed(2),cheatOn,state,dyingT:+dyingT.toFixed(2),gt:+gameTime.toFixed(1),tleft:tleftEl.textContent,STATS:{...STATS},rel:{mira:relScore('mira'),sonia:relScore('sonia')}}),setBat:v=>{battery=v;},press:b=>press(b),win:()=>winGame(),rel:(g,o)=>Object.assign(REL[g],o),floor:()=>floorIdx,lv:()=>LV&&LV.id,goFloor:(f,x,y,a,z)=>{useFloor(f);P.x=x;P.y=y;P.a=a;P.z=P.zv=z!==undefined?z:LBASE[f];},EL,route:n=>routeFrom(n||20),setGoal:R=>{LV.goal=R;bakeFields();},node:()=>{const a=nodeAt(P.x,P.y,P.z);return a<0?null:{a,nav:navN[a],mus:musN[a]};},walk:(x,y,z)=>standAt(x,y,z),dbgSh:(x,y,z)=>{buildOccluders();return [OCC_N,shadowAt(x,y,z,null),FX,FY,FZ,BDX,BDY,FP];},moveNpc:(i,x,y)=>{const p=sprites.filter(q=>q.kind==='person')[i];p.x=x;p.y=y;return p.who;},prof:()=>{const o={};for(const k in PROF)o[k]=+PROF[k].toFixed(1);o.nspr=FLOORS.reduce((a,F)=>a+F.sprites.length,0);o.vis=visList.length;o.NBM=NBM;return o;},perf:()=>{const t0=performance.now();for(let i=0;i<10;i++){renderScene();}const t1=performance.now();for(let i=0;i<10;i++)renderVolume();const t2=performance.now();return {scene:((t1-t0)/10).toFixed(1),vol:((t2-t1)/10).toFixed(1),W,H,occ:OCC_N};},drunk:(v)=>{drunkT=v;},audio:()=>A.dbg?{g:+A.dbg.gain.toFixed(2),cut:Math.round(A.dbg.cut),pan:+A.dbg.pan.toFixed(2),d:A.dbg.d}:null,battery:()=>battery,bakeMs:()=>{const t=performance.now();bakeLight();bakeMusicField();return performance.now()-t;},get state(){return state;},P,newGame,startGame,press,input,setBattery:v=>{battery=v;},sprites:()=>sprites,doors:()=>doors,tp:(x,y,a,z)=>{P.x=x;P.y=y;if(a!==undefined)P.a=a;if(z!==undefined){P.z=P.zv=z;useFloor(layerOfZ(z));}}};
 })();
 </script>

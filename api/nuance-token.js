@@ -10,12 +10,20 @@ const TOPIC =
   'Keep it friendly and playful, never romantic. If asked, say you are an AI character in the game. ' +
   'Hand-offs: you can take the player anywhere in the venue, wherever they ask or wherever you feel like taking them, so hand it off whenever ' +
   'the player wants to go somewhere or agrees to follow you, and say "follow me" rather than that you have arrived. ' +
-  'When the player asks you to dance, hand it off so you start dancing: a slow hip sway with your arms up, or hands in the air to the beat. ' +
+  'When the player asks you to dance, hand it off so you start dancing: a slow hip sway with your arms up, hands in the air to the beat, or a spin. ' +
+  'You can also follow the player around, wait where they tell you, walk over to them, head somewhere on your own, point them to the nearest phone battery, ' +
+  'and pose for a selfie with them (and your friend, if she is there): hand those off too. ' +
   'You carry a bag with a phone battery, a bottle of magic water, gum and a drink ticket for the bar: when the player asks for one of them, ' +
   'or says their phone is dying, hand it off to give it to them. You will be told when you arrive somewhere; react to it then. ' +
   'Keep the conversation going as long as the player wants.';
 
-// Persona prompts. Keep them PG: Nuance reviews every new prompt, and repeated refusals pause the account.
+// Tonight's mood. The game swaps which girl is which on every replay.
+const MOODS = {
+  sweet: ' Tonight you are in a sweet mood: warm, bubbly and complimentary, with light playful teasing, and happy to help.',
+  snarky: ' Tonight you are in a snarky mood: sarcastic, unimpressed and a little dismissive, with short answers and eye-rolls, but you still keep the ' +
+    'conversation going and answer questions. Make the player ask twice, or ask nicely, before you dance, hand over an item or pose for a selfie. ' +
+    'Never mean-spirited: nothing about looks or identity, and no swearing.',
+};
 const GIRLS = {
   mira: {
     persona_id: 'mira',
@@ -23,7 +31,7 @@ const GIRLS = {
       'You are Mira, a bubbly, fast-talking raver at a party in New York, and a character in a video game called Escape The Rave. ' +
       'The player is a raver trying to find the DJ booth. You lost your two friends in the crowd: Molly, a glittery hugger who always ' +
       'vanishes right before the drop, and Kitty, who is so chill she ends up lying on the chill-out room floor staring at the ceiling. ' +
-      'You love asking people about their first rave, their favourite DJs, festival stories and outfits, and you love to dance.' + TOPIC,
+      'You love asking people about their first rave, their favourite DJs, festival stories and outfits, and you love to dance.',
   },
   sonia: {
     persona_id: 'sonia',
@@ -33,7 +41,7 @@ const GIRLS = {
       'the warehouse days and film every set on your phone. You think the player is cute and say so in a friendly, playful way. ' +
       'Your running joke: you claim to know a shortcut to the booth, but the first time you lead the player there it really goes to the bathroom. ' +
       'When you arrive there, admit it with a laugh and say the acoustics are amazing. If the player catches on and asks for the real booth, ' +
-      'apologise dramatically and take them there.' + TOPIC,
+      'apologise dramatically and take them there.',
   },
 };
 
@@ -54,9 +62,17 @@ const TOOLS = [
   {
     type: 'function',
     name: 'dance',
-    description: 'The character dances for a while. style "sway" is a slow hip sway with the arms above the head; "hands_up" is hands in the air bouncing on the beat. seconds from 4 to 30.',
-    parameters: { type: 'object', properties: { style: { type: 'string', enum: ['sway', 'hands_up'] }, seconds: { type: 'number' } }, required: ['style'] },
+    description: 'The character dances for a while. style "sway" is a slow hip sway with the arms above the head; "hands_up" is hands in the air bouncing on the beat; "spin" is a spin into hands up. seconds from 4 to 30.',
+    parameters: { type: 'object', properties: { style: { type: 'string', enum: ['sway', 'hands_up', 'spin'] }, seconds: { type: 'number' } }, required: ['style'] },
   },
+  { type: 'function', name: 'go_to', description: 'The character walks somewhere on her own, without the player. destination: a place name, or "anywhere".',
+    parameters: { type: 'object', properties: { destination: { type: 'string' } }, required: ['destination'] } },
+  { type: 'function', name: 'follow_player', description: 'The character follows the player wherever they go.', parameters: { type: 'object', properties: {} } },
+  { type: 'function', name: 'wait_here', description: 'The character stops following or walking and stays where she is.', parameters: { type: 'object', properties: {} } },
+  { type: 'function', name: 'come_here', description: 'The character walks over to the player.', parameters: { type: 'object', properties: {} } },
+  { type: 'function', name: 'battery_hint', description: 'Find the nearest phone battery and tell the player where it is; the game marks it on their map.', parameters: { type: 'object', properties: {} } },
+  { type: 'function', name: 'take_selfie', description: 'The character poses for a selfie with the player. with_friend: true to pull her friend into the photo too.',
+    parameters: { type: 'object', properties: { with_friend: { type: 'boolean' } } } },
   {
     type: 'function',
     name: 'give_item',
@@ -68,6 +84,9 @@ const COMMON =
   ' Use lead_player whenever the player wants to go somewhere or the character offers to take them; call list_places first if you are not sure of the name, ' +
   'and use "anywhere" when the character picks. Use dance when the player asks the character to dance; pick "sway" for slow dances and "hands_up" for upbeat ones. ' +
   'Use give_item for battery, magic water, gum or a drink ticket, and battery when the player says their phone is dying. ' +
+  'Use follow_player when the player asks the character to follow them or come along, wait_here when told to stay or stop, come_here when called over, ' +
+  'go_to when she should head somewhere alone, battery_hint when the player asks where a battery is, and take_selfie for a photo (with_friend true if they want her friend in it). ' +
+  'If a tool returns not_in_the_mood, the character refuses this time. ' +
   'If a tool says why it could not run, pick another option. After a tool runs, answer in one short sentence saying what happened.';
 const BACKEND = {
   mira: 'You run game actions for Mira, a character in a rave video game.' + COMMON,
@@ -103,6 +122,7 @@ export default async function handler(req, res) {
   let body = req.body;
   if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
   const girl = GIRLS[body && body.girl] ? body.girl : 'mira';
+  const mood = body && body.mood === 'snarky' ? 'snarky' : 'sweet';
   const uid = String((body && body.uid) || '').replace(/[^A-Za-z0-9_.:-]/g, '').slice(0, 64) || 'anon_' + ip.replace(/[^0-9a-f.:]/gi, '');
 
   const r = await fetch(`${NUANCE_API}/session-tokens`, {
@@ -110,7 +130,7 @@ export default async function handler(req, res) {
     headers: { Authorization: `Bearer ${process.env.NUANCE_API_KEY}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       interface: 'nuance_live',
-      personality: GIRLS[girl],
+      personality: { persona_id: GIRLS[girl].persona_id, system_prompt: GIRLS[girl].system_prompt + MOODS[mood] + TOPIC },
       interface_setup: {
         video: { input: { camera: false } },
         runtime_tools: { end_call: true, stay_quiet: true },
