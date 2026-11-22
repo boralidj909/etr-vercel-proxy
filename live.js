@@ -110,11 +110,12 @@ window.ETR_LIVE = {
       await c.connect();
     } catch (err) {
       const name = (err && err.name) || '';
-      if (name === 'WebRTCUnavailableError') blocked = true;
+      if (name === 'WebRTCUnavailableError' || (name === 'ApiError' && err.code === 'legal_blocked')) blocked = true;
       const why = name === 'MediaAccessError' ? 'mic blocked'
         : name === 'ActiveSessionError' ? 'another call is still on, try again in a minute'
         : name === 'GuestLimitError' ? 'guest limit reached'
-        : name === 'LegalRequiredError' ? 'Nuance terms need accepting'
+        : name === 'LegalRequiredError' ? 'the Nuance account owner needs to accept their terms'
+        : name === 'ApiError' && err.code === 'legal_blocked' ? 'Nuance live chat is not offered where this phone is'
         : name === 'MaintenanceError' ? 'Nuance is down for maintenance'
         : name === 'PolicyCurfewError' ? 'Nuance paused new calls'
         : /slow_down/.test(String(err && err.message)) ? 'too many tries, wait a few minutes'
