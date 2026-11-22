@@ -2810,8 +2810,8 @@ function liveApi(s){const mine=()=>DLG.on&&DLG.s===s;return{
   onHer:(t,done)=>{if(!mine())return;if(!DLG.liveEl)DLG.liveEl=logAdd('her','');DLG.liveEl.textContent=t;dlgLog.scrollTop=dlgLog.scrollHeight;if(done){DLG.liveEl=null;memLine(s.girl,s.girl,t);}},
   onYou:(t,done)=>{if(!mine())return;if(done){relText(s.girl,t);memLine(s.girl,'you',t);learnName(t);DLG.lastYou=t;}if(!DLG.youEl)DLG.youEl=logAdd('you','');DLG.youEl.textContent=t;dlgLog.scrollTop=dlgLog.scrollHeight;if(done)DLG.youEl=null;},
   tool:(name,args)=>runGirlTool(s,name,args||{}),
-  onEnd:()=>{if(!mine())return;DLG.live=false;DLG.video=null;logAdd('her','(call ended)');dlgStatus('');setTimeout(()=>{if(DLG.s===s&&!DLG.live)dlgClose(false);},2500);},
-  onFail:why=>{if(!mine()||!DLG.livePending)return;DLG.livePending=false;dlgStatus('LIVE UNAVAILABLE'+(why?' · '+why:''));
+  onEnd:()=>{if(!mine()||!DLG.live)return;DLG.live=false;DLG.video=null;logAdd('her','(call ended)');dlgStatus('');setTimeout(()=>{if(DLG.s===s&&!DLG.live&&DLG.mode==='live')dlgClose(false);},2500);},
+  onFail:why=>{if(!mine()||!DLG.livePending)return;DLG.livePending=false;dlgStatus('LIVE UNAVAILABLE'+(why?' · '+why:''));if(DLG.firstTalk)s.talked=false;
     if(SAMPLE&&!SAMPLE_OFF){DLG.mode='claude';dlgEl.classList.add('chat');claudeTurn('[The player just walked up to you. Start the conversation.]');}
     else{toast('LIVE CHAT DIDN\'T START',(why||'error')+'. Talk to her again to retry.',3.4);if(DLG.mode!=='script')dlgRestartScript();}}};}
 function girlTalk(s){
@@ -2819,7 +2819,7 @@ function girlTalk(s){
   if(DLG.on&&DLG.f===s){try{dlgIn.focus();}catch(e){}return;}
   if(REL[s.girl])REL[s.girl].talk++;
   if(DLG.on&&DLG.s===s){if(DLG.mode==='script')dlgSkip();else{try{dlgIn.focus();}catch(e){}}return;}
-  if(window.ETR_LIVE&&ETR_LIVE.available&&ETR_LIVE.available()){dlgOpen(s,'live');DLG.livePending=true;
+  if(window.ETR_LIVE&&ETR_LIVE.available&&ETR_LIVE.available()){const first=!s.talked;dlgOpen(s,'live');DLG.livePending=true;DLG.firstTalk=first;
     logAdd('her',pick(isSnark(s.girl)?['What. Hold on.','Ugh, one sec.']:s.girl==='mira'?['Hiii! Hold on, it\'s so loud...','Oh my god, hi! One sec...']:['Wait, wait. Hi! Hold on...','Oh, hey cutie! One sec...']));
     dlgStatus('CALLING · ALLOW MIC FOR VOICE');ETR_LIVE.start(s.girl,liveApi(s),{mood:MOOD[s.girl]});s.talked=true;return;}
   if(SAMPLE&&!SAMPLE_OFF){dlgOpen(s,'claude');claudeTurn(s.talked?'[The player came back to talk to you again.]':'[The player just walked up to you. Start the conversation.]');s.talked=true;return;}
